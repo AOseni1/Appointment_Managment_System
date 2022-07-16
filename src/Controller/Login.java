@@ -43,11 +43,6 @@ public class Login implements Initializable {
         stage.show();
     }
 
-    @FXML
-    void onActionReset(ActionEvent event) {
-
-    }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

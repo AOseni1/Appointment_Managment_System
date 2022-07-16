@@ -13,16 +13,16 @@
          <children>
             <TableView maxHeight="285.0" maxWidth="1000.0" prefHeight="285.0" prefWidth="768.0">
               <columns>
-                <TableColumn prefWidth="99.0" text="Appointment ID" />
-                <TableColumn prefWidth="51.0" text="Title" />
-                  <TableColumn prefWidth="75.0" text="Description" />
-                  <TableColumn prefWidth="75.0" text="Location" />
-                  <TableColumn prefWidth="75.0" text="Contact" />
-                  <TableColumn prefWidth="75.0" text="Type" />
-                  <TableColumn prefWidth="75.0" text="Start Time" />
-                  <TableColumn prefWidth="75.0" text="End Time" />
-                  <TableColumn prefWidth="75.0" text="Customer ID" />
-                  <TableColumn maxWidth="4000.0" prefWidth="75.0" text="UserID" />
+                <TableColumn fx:id="appointmentIDColumn" prefWidth="99.0" text="Appointment ID" />
+                <TableColumn fx:id="titleColumn" prefWidth="51.0" text="Title" />
+                  <TableColumn fx:id="descriptionColumn" prefWidth="75.0" text="Description" />
+                  <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
+                  <TableColumn fx:id="contactColumn" prefWidth="75.0" text="Contact" />
+                  <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
+                  <TableColumn fx:id="startTimeColumn" prefWidth="75.0" text="Start Time" />
+                  <TableColumn fx:id="endTimeColumn" prefWidth="75.0" text="End Time" />
+                  <TableColumn fx:id="customerIDColumn" prefWidth="75.0" text="Customer ID" />
+                  <TableColumn fx:id="userIDColumn" maxWidth="4000.0" prefWidth="75.0" text="UserID" />
               </columns>
                <HBox.margin>
                   <Insets top="50.0" />
@@ -41,13 +41,16 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="viewTG" />
+               </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="viewByMonth" mnemonicParsing="false" prefHeight="18.0" prefWidth="200.0" text="View By Month">
+            <RadioButton fx:id="viewByMonth" mnemonicParsing="false" prefHeight="18.0" prefWidth="200.0" text="View By Month" toggleGroup="$viewTG">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </RadioButton>
-            <RadioButton fx:id="viewAll" maxWidth="200.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="150.0" text="View All ">
+            <RadioButton fx:id="viewAll" maxWidth="200.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="150.0" text="View All " toggleGroup="$viewTG">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

@@ -33,20 +33,20 @@
                   <Label text="Postal Code:" GridPane.rowIndex="3" />
                   <Label text="Phone Number:" GridPane.rowIndex="4" />
                   <Label text="Countries" GridPane.rowIndex="5" />
-                  <TextField prefHeight="27.0" prefWidth="357.0" GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="customerIDTextField" prefHeight="27.0" prefWidth="357.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="customerNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="addressTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="postalCodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Divisions" GridPane.rowIndex="6" />
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ChoiceBox fx:id="countriesDropDOwnMenu" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ChoiceBox fx:id="divisionsDropDownMenu" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
             </GridPane>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="135.0" text="Save Customer" />
-                  <Button mnemonicParsing="false" prefWidth="135.0" text="Cancel" />
+                  <Button fx:id="saveCustomerButton" mnemonicParsing="false" onAction="#onActionSaveCustomer" prefHeight="27.0" prefWidth="135.0" text="Save Customer" />
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onActionCancel" prefWidth="135.0" text="Cancel" />
                </children>
                <VBox.margin>
                   <Insets right="10.0" top="10.0" />
