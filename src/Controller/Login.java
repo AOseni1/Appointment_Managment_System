@@ -27,18 +27,13 @@ public class Login implements Initializable {
     private Label timeZoneLabel;
 
     @FXML
-    private MenuButton languagePullDown;
-
-    @FXML
     private Button loginButton;
 
-    @FXML
-    private Button resetButton;
 
     @FXML
     void onActionLogin(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/View/LandingPage.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }

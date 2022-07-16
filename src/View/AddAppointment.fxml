@@ -47,15 +47,14 @@
                   <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="descriptionTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="locationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="typeTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="contactIDTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="customerIDTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField fx:id="userIDTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <TextField fx:id="startTimeTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                   <DatePicker fx:id="startDateCalendar" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <TextField fx:id="endTimeTextField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                   <Label text="End Time" GridPane.rowIndex="11" />
+                  <ComboBox fx:id="contactIDComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="customerIDComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="userIDComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="typeComboBOc" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
          </children>

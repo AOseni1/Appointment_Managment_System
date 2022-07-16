@@ -42,6 +42,9 @@
                   <ChoiceBox fx:id="countriesDropDOwnMenu" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <ChoiceBox fx:id="divisionsDropDownMenu" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
             </GridPane>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>

@@ -7,37 +7,48 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxWidth="800.0" prefHeight="401.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Reports">
    <children>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" spacing="55.0">
+      <VBox prefHeight="401.0" prefWidth="800.0">
          <children>
-            <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="186.0" text="Customer By Type" />
-            <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="208.0" text="Customers By Month" />
-            <ChoiceBox prefWidth="150.0" />
-            <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="242.0" text="Customers By Country" />
-         </children>
-         <padding>
-            <Insets left="20.0" />
-         </padding>
-      </HBox>
-      <VBox alignment="CENTER" layoutY="45.0" prefHeight="298.0" prefWidth="800.0">
-         <children>
-            <TableView maxWidth="675.0" prefHeight="237.0" prefWidth="600.0">
-              <columns>
-                <TableColumn prefWidth="96.0" text="Appointment ID" />
-                <TableColumn prefWidth="89.0" text="Title" />
-                  <TableColumn prefWidth="62.0" text="Type" />
-                  <TableColumn prefWidth="81.0" text="Description" />
-                  <TableColumn prefWidth="66.0" text="Start Date" />
-                  <TableColumn prefWidth="68.0" text="Start Time" />
-                  <TableColumn prefWidth="63.0" text="End Date" />
-                  <TableColumn prefWidth="75.0" text="End Time" />
-                  <TableColumn prefWidth="75.0" text="Customer ID" />
-              </columns>
-            </TableView>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" spacing="55.0">
+               <children>
+                  <RadioButton fx:id="customerByTypeRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="186.0" text="Customer By Type">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="CustomerTG" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="customersByMonthRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="208.0" text="Customers By Month" toggleGroup="$CustomerTG" />
+                  <ChoiceBox fx:id="monthChoiceBox" prefWidth="150.0" />
+                  <RadioButton fx:id="customerByCountryRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="242.0" text="Customers By Country" toggleGroup="$CustomerTG" />
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="298.0" prefWidth="800.0">
+               <children>
+                  <TableView maxWidth="675.0" prefHeight="237.0" prefWidth="600.0">
+                    <columns>
+                      <TableColumn fx:id="appointmentIDColumn" prefWidth="96.0" text="Appointment ID" />
+                      <TableColumn fx:id="titleColumn" prefWidth="89.0" text="Title" />
+                        <TableColumn fx:id="typeColumn" prefWidth="62.0" text="Type" />
+                        <TableColumn fx:id="descriptionColumn" prefWidth="81.0" text="Description" />
+                        <TableColumn fx:id="startDateColumn" prefWidth="66.0" text="Start Date" />
+                        <TableColumn fx:id="startTimeColumn" prefWidth="68.0" text="Start Time" />
+                        <TableColumn fx:id="endDateColumn" prefWidth="63.0" text="End Date" />
+                        <TableColumn fx:id="endTimeColumn" prefWidth="75.0" text="End Time" />
+                        <TableColumn fx:id="customerIDColumn" prefWidth="75.0" text="Customer ID" />
+                    </columns>
+                  </TableView>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="594.0">
+                     <children>
+                        <Button fx:id="returnToMainMenuButton" mnemonicParsing="false" onAction="#onActionReturnToMainMenu" text="Return to Main Menu" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </VBox>
-      <HBox layoutX="6.0" layoutY="340.0" prefHeight="60.0" prefWidth="594.0" />
    </children>
 </AnchorPane>

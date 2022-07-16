@@ -34,11 +34,6 @@
                      </VBox.margin>
                   </PasswordField>
                   <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#onActionLogin" prefHeight="27.0" prefWidth="54.0" text="Login" />
-                  <Button fx:id="resetButton" maxHeight="27.0" maxWidth="54.0" mnemonicParsing="false" onAction="#onActionReset" text="Reset">
-                     <VBox.margin>
-                        <Insets top="30.0" />
-                     </VBox.margin>
-                  </Button>
                   <Label fx:id="timeZoneLabel" alignment="CENTER" contentDisplay="BOTTOM" text="Time Zone">
                      <VBox.margin>
                         <Insets top="20.0" />
@@ -49,15 +44,6 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <MenuButton fx:id="languagePullDown" alignment="BASELINE_LEFT" mnemonicParsing="false" text="Language">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="English" />
-                      <MenuItem mnemonicParsing="false" text="French" />
-                    </items>
-                     <VBox.margin>
-                        <Insets right="475.0" />
-                     </VBox.margin>
-                  </MenuButton>
                </children>
             </VBox>
          </children>
