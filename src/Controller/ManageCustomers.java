@@ -75,7 +75,7 @@ public class ManageCustomers implements Initializable {
     private TableColumn<?, ?> manageCustomersAddressColumn;
 
     @FXML
-    private TableColumn<?, ?> manageCustomersCustomerIDCOlumn;
+    private TableColumn<?, ?> manageCustomersCustomerIDColumn;
 
     @FXML
     private TableColumn<?, ?> manageCustomersCustomerNameColumn;
@@ -85,6 +85,9 @@ public class ManageCustomers implements Initializable {
 
     @FXML
     private TableColumn<?, ?> manageCustomersCountryColumn;
+
+    @FXML
+    private TableColumn<?, ?> getManageCustomersCountryIDColumn;
 
     /**
      * Choice boexes
