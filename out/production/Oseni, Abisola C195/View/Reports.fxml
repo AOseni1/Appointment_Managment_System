@@ -7,11 +7,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxWidth="865.0" prefHeight="401.0" prefWidth="865.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Reports">
+<AnchorPane maxWidth="1665.0" prefHeight="401.0" prefWidth="1665.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Reports">
    <children>
-      <VBox prefHeight="401.0" prefWidth="865.0">
+      <VBox prefHeight="401.0" prefWidth="1664.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0" spacing="55.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="1010.0" spacing="55.0">
                <padding>
                   <Insets left="20.0" />
                </padding>
@@ -20,27 +20,35 @@
                   <ComboBox fx:id="reportsMonthComboBox" prefWidth="150.0" />
                   <Label prefHeight="17.0" prefWidth="63.0" text="Type" />
                   <ComboBox fx:id="reportsTypeComboBox" prefWidth="150.0" />
-                  <Label prefHeight="17.0" prefWidth="105.0" text="Country Count" />
+                  <Label prefHeight="17.0" prefWidth="105.0" text="Country" />
                   <ComboBox fx:id="reportsCountryCountComboBox" prefWidth="150.0" />
+                  <Label prefHeight="17.0" prefWidth="86.0" text="Contact" />
+                  <ComboBox fx:id="contactComboBox" prefWidth="150.0" />
                </children>
             </HBox>
             <VBox alignment="CENTER" prefHeight="298.0" prefWidth="800.0">
                <children>
-                  <TableView maxWidth="675.0" prefHeight="237.0" prefWidth="600.0">
+                  <TableView maxWidth="975.0" prefHeight="237.0" prefWidth="975.0">
                     <columns>
                       <TableColumn fx:id="appointmentIDColumn" prefWidth="96.0" text="Appointment ID" />
                       <TableColumn fx:id="titleColumn" prefWidth="89.0" text="Title" />
                         <TableColumn fx:id="typeColumn" prefWidth="62.0" text="Type" />
-                        <TableColumn fx:id="descriptionColumn" prefWidth="81.0" text="Description" />
-                        <TableColumn fx:id="startDateColumn" prefWidth="66.0" text="Start Date" />
-                        <TableColumn fx:id="startTimeColumn" prefWidth="68.0" text="Start Time" />
-                        <TableColumn fx:id="endDateColumn" prefWidth="63.0" text="End Date" />
-                        <TableColumn fx:id="endTimeColumn" prefWidth="75.0" text="End Time" />
-                        <TableColumn fx:id="customerIDColumn" prefWidth="75.0" text="Customer ID" />
+                        <TableColumn fx:id="descriptionColumn" prefWidth="169.1119384765625" text="Description" />
+                        <TableColumn fx:id="startDateColumn" prefWidth="85.88812255859375" text="Start Date" />
+                        <TableColumn fx:id="startTimeColumn" prefWidth="114.03192138671875" text="Start Time" />
+                        <TableColumn fx:id="endDateColumn" prefWidth="107.11444091796875" text="End Date" />
+                        <TableColumn fx:id="endTimeColumn" prefWidth="66.67901611328125" text="End Time" />
+                        <TableColumn fx:id="customerIDColumn" prefWidth="185.36602783203125" text="Customer ID" />
                     </columns>
                   </TableView>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="594.0">
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="594.0" spacing="30.0">
                      <children>
+                        <Label text="Count">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </Label>
+                        <TextField />
                         <Button fx:id="returnToMainMenuButton" mnemonicParsing="false" onAction="#onActionReturnToMainMenu" text="Return to Main Menu" />
                      </children>
                   </HBox>

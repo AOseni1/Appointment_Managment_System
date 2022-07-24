@@ -18,44 +18,47 @@ public class Reports implements Initializable {
     Stage stage;
     Parent scene;
 
-        @FXML
-        private ComboBox<?> reportsCountryCountComboBox;
+    @FXML
+    private ComboBox<?> reportsCountryCountComboBox;
 
-        @FXML
-        private TableColumn<?, ?> customerIDColumn;
+    @FXML
+    private ComboBox<?> contactComboBox;
 
-        @FXML
-        private TableColumn<?, ?> startDateColumn;
+    @FXML
+    private TableColumn<?, ?> customerIDColumn;
 
-        @FXML
-        private TableColumn<?, ?> typeColumn;
+    @FXML
+    private TableColumn<?, ?> startDateColumn;
 
-        @FXML
-        private TableColumn<?, ?> endDateColumn;
+    @FXML
+    private TableColumn<?, ?> typeColumn;
 
-        @FXML
-        private TableColumn<?, ?> startTimeColumn;
+    @FXML
+    private TableColumn<?, ?> endDateColumn;
 
-        @FXML
-        private ComboBox<?> reportsMonthComboBox;
+    @FXML
+    private TableColumn<?, ?> startTimeColumn;
 
-        @FXML
-        private TableColumn<?, ?> titleColumn;
+    @FXML
+    private ComboBox<?> reportsMonthComboBox;
 
-        @FXML
-        private Button returnToMainMenuButton;
+    @FXML
+    private TableColumn<?, ?> titleColumn;
 
-        @FXML
-        private ComboBox<?> reportsTypeComboBox;
+    @FXML
+    private Button returnToMainMenuButton;
 
-        @FXML
-        private TableColumn<?, ?> appointmentIDColumn;
+    @FXML
+    private ComboBox<?> reportsTypeComboBox;
 
-        @FXML
-        private TableColumn<?, ?> endTimeColumn;
+    @FXML
+    private TableColumn<?, ?> appointmentIDColumn;
 
-        @FXML
-        private TableColumn<?, ?> descriptionColumn;
+    @FXML
+    private TableColumn<?, ?> endTimeColumn;
+
+    @FXML
+    private TableColumn<?, ?> descriptionColumn;
 
         @FXML
         void onActionReturnToMainMenu(ActionEvent event) throws IOException {
