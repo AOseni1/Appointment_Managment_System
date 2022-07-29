@@ -1,10 +1,7 @@
 package Main;
 
-import DAO.CountriesDAO;
-import DAO.CustomersDAO;
-import DAO.JDBC;
-import Model.Countries;
-import Model.Customers;
+import DAO.*;
+import Model.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -23,15 +20,8 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         JDBC.openConnection();
-
-            ObservableList<Customers> customerList = CustomersDAO.getAllCustomers();
-            for (Customers customers : customerList) {
-                System.out.println(customers.getCustomerID() + " - " + customers.getCustomerName() + " - " + customers.getAddress() + " - " + customers.getPostalCode() + " - " + customers.getPhoneNumber() + " - " + customers.getDivisionID());
-
-            }
-
 
             launch(args);
 

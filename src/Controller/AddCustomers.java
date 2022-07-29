@@ -1,5 +1,10 @@
 package Controller;
 
+import DAO.CountriesDAO;
+import DAO.CustomersDAO;
+import DAO.FirstLevelDivisionsDAO;
+import Model.Countries;
+import Model.First_Level_Divisions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -33,7 +39,7 @@ public class AddCustomers implements Initializable {
     private Button cancelButton;
 
     @FXML
-    private ChoiceBox<?> divisionsDropDownMenu;
+    private ComboBox<First_Level_Divisions> divisionsDropDownMenu;
 
     @FXML
     private Button saveCustomerButton;
@@ -45,10 +51,19 @@ public class AddCustomers implements Initializable {
     private TextField postalCodeTextField;
 
     @FXML
-    private ChoiceBox<?> countriesDropDOwnMenu;
+    private ComboBox<Countries> countriesDropDOwnMenu;
 
     @FXML
     void onActionSaveCustomer(ActionEvent event) throws IOException {
+        String name = customerNameTextField.getText();
+        String address = addressTextField.getText();
+        String phoneNumber = phoneNumberTextField.getText();
+        String postalCode = postalCodeTextField.getText();
+
+        First_Level_Divisions fld = divisionsDropDownMenu.getValue();
+
+        CustomersDAO.addCustomer(name, address, phoneNumber, postalCode, fld.getDivisionID());
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/ManageCustomers.fxml"));
         stage.setScene(new Scene(scene));
@@ -63,8 +78,12 @@ public class AddCustomers implements Initializable {
         stage.show();
     }
 
+    public void onCountryCombo(ActionEvent actionEvent) {
+        Countries countries = countriesDropDOwnMenu.getValue();
+        divisionsDropDownMenu.setItems(FirstLevelDivisionsDAO.getAllFirstLevelDivisions(countries.getCountryID()));
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        countriesDropDOwnMenu.setItems(CountriesDAO.getAllCountries());
     }
 }

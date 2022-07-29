@@ -38,8 +38,8 @@
                     <TextField fx:id="manageCustomersPostalCodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     <TextField fx:id="manageCustomersPhoneNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     <Label text="Divisions" GridPane.rowIndex="6" />
-                    <ChoiceBox fx:id="manageCustomersCountriesDropDownMenu" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <ChoiceBox fx:id="manageCustomersDivisionsDropDownMenu" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    <ComboBox fx:id="manageCustomersCountriesDropDownMenu" onAction="#onCountryCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <ComboBox fx:id="manageCustomersDivisionsDropDownMenu" onAction="#onDivisionsCombo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 </children>
                <padding>
                   <Insets right="10.0" />
@@ -65,16 +65,15 @@
     </VBox>
       <VBox prefHeight="267.0" prefWidth="701.0">
          <children>
-            <TableView prefHeight="267.0" prefWidth="636.0">
+            <TableView fx:id="manageCustomersTable" prefHeight="267.0" prefWidth="636.0">
               <columns>
                 <TableColumn fx:id="manageCustomersCustomerIDColumn" prefWidth="75.0" text="Customer ID" />
                 <TableColumn fx:id="manageCustomersCustomerNameColumn" prefWidth="115.0" text="Customer Name" />
                   <TableColumn fx:id="manageCustomersAddressColumn" prefWidth="110.0" text="Address" />
                   <TableColumn fx:id="manageCustomersPostalCodeColumn" prefWidth="90.0" text="Postal Code" />
                   <TableColumn fx:id="manageCustomersPhoneNumberColumn" prefWidth="95.0" text="Phone Number" />
-                  <TableColumn fx:id="manageCustomersCountryColumn" prefWidth="58.0" text="Country" />
-                  <TableColumn fx:id="manageCustomersDivisionColumn" prefWidth="71.0" text="Division" />
-                  <TableColumn fx:id="manageCustomersCountryIDColumn" prefWidth="84.0" text="Country ID" />
+                  <TableColumn fx:id="manageCustomersDivisionColumn" prefWidth="110.0" text="Division" />
+                  <TableColumn fx:id="manageCustomersCountryIDColumn" prefWidth="102.0" text="Country ID" />
               </columns>
             </TableView>
          </children>

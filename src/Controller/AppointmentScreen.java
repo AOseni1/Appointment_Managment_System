@@ -29,25 +29,6 @@ public class AppointmentScreen implements Initializable {
 
     @FXML
     private TableColumn<?, ?> startDateColumn;
-
-    @FXML
-    private Button addAppointment;
-
-    @FXML
-    private RadioButton viewByWeek;
-
-    @FXML
-    private ToggleGroup viewTG;
-
-    @FXML
-    private TableColumn<?, ?> typeColumn;
-
-    @FXML
-    private RadioButton viewAll;
-
-    @FXML
-    private Button modifyAppointment;
-
     @FXML
     private TableColumn<?, ?> endDateColumn;
 
@@ -56,18 +37,8 @@ public class AppointmentScreen implements Initializable {
 
     @FXML
     private TableColumn<?, ?> titleColumn;
-
     @FXML
-    private RadioButton viewByMonth;
-
-    @FXML
-    private Button deleteAppointment;
-
-    @FXML
-    private Button report;
-
-    @FXML
-    private Button returnToMainScreenButton;
+    private TableColumn<?, ?> typeColumn;
 
     @FXML
     private TableColumn<?, ?> appointmentIDColumn;
@@ -80,6 +51,33 @@ public class AppointmentScreen implements Initializable {
 
     @FXML
     private TableColumn<?, ?> descriptionColumn;
+
+    @FXML
+    private Button addAppointment;
+
+    @FXML
+    private Button modifyAppointment;
+
+    @FXML
+    private Button deleteAppointment;
+
+    @FXML
+    private Button report;
+
+    @FXML
+    private Button returnToMainScreenButton;
+
+    @FXML
+    private RadioButton viewByWeek;
+
+    @FXML
+    private RadioButton viewAll;
+
+    @FXML
+    private RadioButton viewByMonth;
+
+    @FXML
+    private ToggleGroup viewTG;
 
 
     @FXML

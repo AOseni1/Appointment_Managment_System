@@ -1,15 +1,21 @@
 package Controller;
 
+import DAO.CountriesDAO;
+import DAO.CustomersDAO;
+import DAO.FirstLevelDivisionsDAO;
+import Model.Countries;
+import Model.Customers;
+import Model.First_Level_Divisions;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ManageCustomers implements Initializable {
+
 
     Stage stage;
     Parent scene;
@@ -84,18 +91,17 @@ public class ManageCustomers implements Initializable {
     private TableColumn<?, ?> manageCustomersPhoneNumberColumn;
 
     @FXML
-    private TableColumn<?, ?> manageCustomersCountryColumn;
+    private TableColumn<?, ?> manageCustomersCountryIDColumn;
 
-    @FXML
-    private TableColumn<?, ?> getManageCustomersCountryIDColumn;
 
+    public TableView <Customers> manageCustomersTable;
     /**
-     * Choice boexes
+     * Choice boxes
      */
     @FXML
-    private ChoiceBox<?> manageCustomersCountriesDropDownMenu;
+    private ComboBox<Countries> manageCustomersCountriesDropDownMenu;
     @FXML
-    private ChoiceBox<?> manageCustomersDivisionsDropDownMenu;
+    private ComboBox<First_Level_Divisions> manageCustomersDivisionsDropDownMenu;
 
 
     /**
@@ -161,6 +167,28 @@ public class ManageCustomers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+manageCustomersTable.setItems(CustomersDAO.getAllCustomers());
+manageCustomersCountriesDropDownMenu.setItems(CountriesDAO.getAllCountries());
 
+        manageCustomersCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        manageCustomersCustomerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        manageCustomersAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        manageCustomersPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        manageCustomersPhoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        manageCustomersDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+        manageCustomersCountryIDColumn.setCellValueFactory(new PropertyValueFactory<>("countryID"));
+
+
+    }
+
+
+    public void onCountryCombo(ActionEvent actionEvent) {
+        Countries countries = manageCustomersCountriesDropDownMenu.getValue();
+        manageCustomersDivisionsDropDownMenu.setItems(FirstLevelDivisionsDAO.getAllFirstLevelDivisions(countries.getCountryID()));
+               }
+
+
+    public void onDivisionsCombo(ActionEvent actionEvent) {
+        First_Level_Divisions fld = manageCustomersDivisionsDropDownMenu.getValue();
     }
 }

@@ -2,8 +2,9 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public abstract class JDBC {
+public class JDBC {
 
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -13,19 +14,24 @@ public abstract class JDBC {
     private static final String driver = "com.mysql.cj.jdbc.Driver";
     private static final String userName = "sqlUser";
     private static final String password = "Passw0rd!";
-    public static Connection connection;
+    public static Connection connection =null;
 
-    public static void openConnection(){
+    public static Connection openConnection(){
         try{
             Class.forName(driver);
             connection = DriverManager.getConnection(jdbUrl, userName, password);
             System.out.println("Connection successful");
-        }
-        catch(Exception e){
+        } catch(SQLException e) {
             e.printStackTrace();
-            System.out.println("Error:" + e.getMessage());
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
         }
+        return connection;
+
     }
+
+
+    
         public static void closeConnection(){
             try{
                 connection.close();

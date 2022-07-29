@@ -1,5 +1,8 @@
 package Model;
 
+import DAO.FirstLevelDivisionsDAO;
+import javafx.collections.ObservableList;
+
 public class Customers {
 
 
@@ -9,14 +12,16 @@ public class Customers {
     private String phoneNumber;
     private String postalCode;
     private int divisionID;
+    private int countryID;
 
-    public Customers(int customerID, String customerName, String address, String phoneNumber, String postalCode, int divisionID){
+    public Customers(int customerID, String customerName, String address, String phoneNumber, String postalCode, int divisionID, int countryID){
         this.customerID = customerID;
         this.customerName = customerName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.postalCode = postalCode;
         this.divisionID = divisionID;
+        this.countryID = countryID;
     }
 
     /**
@@ -66,4 +71,15 @@ public class Customers {
     public int getDivisionID() {
         return divisionID;
     }
+
+    /**
+     * this gets the country ID
+     * @return country ID
+     */
+    public int getCountryID() {
+        return countryID;
+    }
+
+
 }
+
