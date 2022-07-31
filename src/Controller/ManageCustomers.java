@@ -16,14 +16,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.ServiceLoader;
 
 public class ManageCustomers implements Initializable {
 
+    public static Customers customerToDelete;
 
     Stage stage;
     Parent scene;
@@ -151,16 +155,26 @@ public class ManageCustomers implements Initializable {
         stage.show();
     }
 
-
-
     @FXML
     void onActionManageCustomersDelete(ActionEvent event) {
-
+        int deleteCustomerID = manageCustomersTable.getSelectionModel().getSelectedItem().getCustomerID();
+        CustomersDAO.deleteCustomer(deleteCustomerID);
+        manageCustomersTable.setItems(CustomersDAO.getAllCustomers());
     }
 
     @FXML
-    void onActionManageCustomersEdit(ActionEvent event) {
+    void onActionManageCustomersEdit(ActionEvent event) throws IOException {
+        Customers c = manageCustomersTable.getSelectionModel().getSelectedItem();
+        if(c == null){
+            return;
+        }
 
+        EditCustomers.customerToModify = c;
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/EditCustomers.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
 

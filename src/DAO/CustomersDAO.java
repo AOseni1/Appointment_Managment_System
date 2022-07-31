@@ -50,4 +50,39 @@ public class CustomersDAO {
             throwables.printStackTrace();
         }
     }
+    public static void editCustomer(String name, String address, String phoneNumber, String postalCode, int divisionID, int customer_ID) {
+        String sql = "UPDATE Customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?;";
+        try {
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, address);
+            ps.setString(3, postalCode);
+            ps.setString(4, phoneNumber);
+            ps.setInt(5, divisionID);
+            ps.setInt(6, customer_ID);
+            ps.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public static void deleteCustomer(int customer_ID) {
+        String sql1 = "DELETE FROM appointments WHERE Customer_ID = ?;";
+        try {
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql1);
+            ps.setInt(1, customer_ID);
+            ps.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    String sql2 = "DELETE FROM customers WHERE Customer_ID = ?;";
+        try {
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql2);
+        ps.setInt(1, customer_ID);
+        ps.execute();
+    } catch (SQLException throwables) {
+        throwables.printStackTrace();
+    }
+}
 }

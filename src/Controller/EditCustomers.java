@@ -4,6 +4,7 @@ import DAO.CountriesDAO;
 import DAO.CustomersDAO;
 import DAO.FirstLevelDivisionsDAO;
 import Model.Countries;
+import Model.Customers;
 import Model.First_Level_Divisions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,20 +12,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddCustomers implements Initializable {
-
+public class EditCustomers implements Initializable {
     Stage stage;
     Parent scene;
 
-    @FXML
-    private TextField customerIDTextField;
+    public static Customers customerToModify;
 
     @FXML
     private TextField phoneNumberTextField;
@@ -36,10 +38,10 @@ public class AddCustomers implements Initializable {
     private Button cancelButton;
 
     @FXML
-    private ComboBox<First_Level_Divisions> divisionsDropDownMenu;
+    private TextField customerIDTextField;
 
     @FXML
-    private Button saveCustomerButton;
+    private ComboBox<First_Level_Divisions> divisionsDropDownMenu;
 
     @FXML
     private TextField customerNameTextField;
@@ -48,21 +50,27 @@ public class AddCustomers implements Initializable {
     private TextField postalCodeTextField;
 
     @FXML
-    private ComboBox<Countries> countriesDropDOwnMenu;
+    private Button updateCustomerButton;
 
     @FXML
-    void onActionSaveCustomer(ActionEvent event) throws IOException {
+    private ComboBox<Countries> countriesDropDOwnMenu;
+
+
+    @FXML
+    void onActionUpdateCustomer(ActionEvent event) throws IOException {
 
         String name = customerNameTextField.getText();
         String address = addressTextField.getText();
         String phoneNumber = phoneNumberTextField.getText();
         String postalCode = postalCodeTextField.getText();
-
-        First_Level_Divisions fld = divisionsDropDownMenu.getValue();
-
+        int customer_ID = Integer.parseInt(customerIDTextField.getText());
 
 
-            CustomersDAO.addCustomer(name, address, phoneNumber, postalCode, fld.getDivisionID());
+        First_Level_Divisions fld = (First_Level_Divisions) divisionsDropDownMenu.getValue();
+
+
+
+            CustomersDAO.editCustomer(name, address, phoneNumber, postalCode, fld.getDivisionID(),customer_ID);
 
         if(name.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -103,8 +111,6 @@ public class AddCustomers implements Initializable {
             alert.showAndWait();
             return;
         }
-
-
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/ManageCustomers.fxml"));
         stage.setScene(new Scene(scene));
@@ -113,7 +119,7 @@ public class AddCustomers implements Initializable {
 
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/ManageCustomers.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
@@ -125,9 +131,29 @@ public class AddCustomers implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        countriesDropDOwnMenu.setItems(CountriesDAO.getAllCountries());
-        customerIDTextField.setText("Auto Gen - Disabled");
-        customerIDTextField.setDisable(true);
+            customerIDTextField.setText(String.valueOf(customerToModify.getCustomerID()));
+            customerIDTextField.setDisable(true);
 
+            customerNameTextField.setText(customerToModify.getCustomerName());
+            addressTextField.setText(customerToModify.getAddress());
+            phoneNumberTextField.setText(customerToModify.getPhoneNumber());
+            postalCodeTextField.setText(customerToModify.getPostalCode());
+
+            countriesDropDOwnMenu.setItems(CountriesDAO.getAllCountries());
+            for(Countries c:countriesDropDOwnMenu.getItems()){
+                if(c.getCountryID() == customerToModify.getCountryID()){
+                    countriesDropDOwnMenu.setValue(c);
+                    break;
+                }
+            }
+        divisionsDropDownMenu.setItems(FirstLevelDivisionsDAO.getAllFirstLevelDivisions(customerToModify.getCountryID()));
+            for(First_Level_Divisions f:divisionsDropDownMenu.getItems()){
+                if(f.getDivisionID() == customerToModify.getDivisionID()){
+                    divisionsDropDownMenu.setValue(f);
+                    break;
+                }
+            }
     }
-}
+    }
+
+
