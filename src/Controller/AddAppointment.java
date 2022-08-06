@@ -1,5 +1,7 @@
 package Controller;
 
+import DAO.*;
+import Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class AddAppointment implements Initializable {
@@ -22,16 +28,16 @@ public class AddAppointment implements Initializable {
      * Combo Boxes
      */
     @FXML
-    private ComboBox<?> userIDComboBox;
+    private ComboBox<Users> userIDComboBox;
 
     @FXML
-    private ComboBox<?> customerIDComboBox;
+    private ComboBox<Customers> customerIDComboBox;
 
     @FXML
-    private ComboBox<?> typeComboBOc;
+    private ComboBox<String> typeComboBOc;
 
     @FXML
-    private ComboBox<?> contactIDComboBox;
+    private ComboBox<Contacts> contactIDComboBox;
 
     /**
      * Labels
@@ -80,7 +86,93 @@ public class AddAppointment implements Initializable {
      */
     @FXML
     void onActionSave(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+
+        String title = titleTextField.getText();
+        String description = descriptionTextField.getText();
+        String location = locationTextField.getText();
+        String type = typeComboBOc.getValue();
+        Contacts contacts = contactIDComboBox.getValue();
+        Customers customers = customerIDComboBox.getValue();
+        Users users = userIDComboBox.getValue();
+        LocalDate date = startDateCalendar.getValue();
+        LocalTime startTime = LocalTime.parse(startTimeTextField.getText());
+        LocalTime endTime = LocalTime.parse(endTimeTextField.getText());
+        LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
+
+        if (title.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Name");
+            alert.showAndWait();
+            return;
+        }
+
+        if (location.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Name");
+            alert.showAndWait();
+            return;
+        }
+        if (type == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Name");
+            alert.showAndWait();
+            return;
+        }
+
+        if (contacts == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Name");
+            alert.showAndWait();
+            return;
+        }
+
+        if (customers == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Name");
+            alert.showAndWait();
+            return;
+        }
+
+        if (users == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Name");
+            alert.showAndWait();
+            return;
+        }
+
+        if (date == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Name");
+            alert.showAndWait();
+            return;
+        }
+
+        if (startTime == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Name");
+            alert.showAndWait();
+            return;
+        }
+
+        if (endTime == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Name");
+            alert.showAndWait();
+            return;
+        }
+        AppointmentsDOA.addAppointment (title, description, location, type, Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime), customers.getCustomerID(), contacts.getContactID(), users.getUserID());
+
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/AppointmentScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
@@ -100,6 +192,13 @@ public class AddAppointment implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        customerIDComboBox.setItems(CustomersDAO.getAllCustomers());
+        userIDComboBox.setItems(UsersDAO.getAllUsers());
+        contactIDComboBox.setItems(ContactsDAO.getAllContacts());
+        typeComboBOc.setItems(Appointments.allTypes);
+        appointmentIDTextField.setText("Auto Gen - Disabled");
+        appointmentIDTextField.setDisable(true);
     }
+
+
 }

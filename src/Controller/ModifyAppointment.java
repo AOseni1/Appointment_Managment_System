@@ -1,5 +1,7 @@
 package Controller;
 
+import DAO.*;
+import Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +16,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class ModifyAppointment implements Initializable {
-
+    public static Appointments appointmentToModify;
     Stage stage;
     Parent scene;
 
@@ -28,7 +34,7 @@ public class ModifyAppointment implements Initializable {
     private TextField modifyAppointmentEndTimeTextField;
 
     @FXML
-    private ComboBox<?> userIDComboBox;
+    private ComboBox<Users> userIDComboBox;
 
     @FXML
     private Button cancelModifyAppointmentButton;
@@ -43,16 +49,16 @@ public class ModifyAppointment implements Initializable {
     private TextField modifyAppointmentStartTimeTextField;
 
     @FXML
-    private ComboBox<?> customerIDComboBox;
+    private ComboBox<Customers> customerIDComboBox;
 
     @FXML
-    private ComboBox<?> typeComboBox;
+    private ComboBox<String> typeComboBox;
 
     @FXML
     private TextField modifyAppointmentTitleTextField;
 
     @FXML
-    private ComboBox<?> contactIDComboBox;
+    private ComboBox<Contacts> contactIDComboBox;
 
     @FXML
     private Button deleteAppointmentButton;
@@ -68,6 +74,7 @@ public class ModifyAppointment implements Initializable {
 
     @FXML
     void onActionUpdateAppointment(ActionEvent event) throws IOException {
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/AppointmentScreen.fxml"));
         stage.setScene(new Scene(scene));
@@ -90,5 +97,48 @@ public class ModifyAppointment implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        modifyAppointmentIDTextField.setText(String.valueOf(appointmentToModify.getCustomerID()));
+        modifyAppointmentIDTextField.setDisable(true);
+
+        modifyAppointmentTitleTextField.setText(appointmentToModify.getTitle());
+        modifyAppointmentDescriptionTextField.setText(appointmentToModify.getDescription());
+        modifyAppointmentLocationTextField.setText(appointmentToModify.getLocation());
+        modifyAppointmentStartTimeTextField.setText(String.valueOf(LocalTime.from(appointmentToModify.getStart())));
+        modifyAppointmentEndTimeTextField.setText(String.valueOf(LocalTime.from(appointmentToModify.getEnd())));
+        modifyAppointmentStartDateCalendar.setValue(LocalDate.from(appointmentToModify.getDateDisplay()));
+        typeComboBox.setItems(Appointments.allTypes);
+        for(String t:typeComboBox.getItems()){
+            if(t == appointmentToModify.getType());{
+                typeComboBox.setValue(t);
+                break;
+            }
+        }
+
+        customerIDComboBox.setItems(CustomersDAO.getAllCustomers());
+        for(Customers c:customerIDComboBox.getItems()){
+            if(c.getCustomerID() == appointmentToModify.getCustomerID()){
+                customerIDComboBox.setValue(c);
+                break;
+            }
+        }
+
+        userIDComboBox.setItems(UsersDAO.getAllUsers());
+        for(Users u:userIDComboBox.getItems()){
+            if(u.getUserID() == appointmentToModify.getUserID()){
+                userIDComboBox.setValue(u);
+                break;
+            }
+        }
+
+        contactIDComboBox.setItems(ContactsDAO.getAllContacts());
+        for(Contacts c:contactIDComboBox.getItems()){
+            if(c.getContactID() == appointmentToModify.getContactID()){
+                contactIDComboBox.setValue(c);
+                break;
+            }
+        }
+
     }
-}
+
+    }
+

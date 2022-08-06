@@ -80,6 +80,8 @@ public class Customers {
         return countryID;
     }
 
-
+    public String toString(){
+        return (customerID + " - " + customerName);
+    }
 }
 

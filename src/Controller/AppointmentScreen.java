@@ -1,5 +1,10 @@
 package Controller;
 
+import DAO.AppointmentsDOA;
+import DAO.CountriesDAO;
+import DAO.CustomersDAO;
+import Model.Appointments;
+import Model.Customers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,9 +34,8 @@ public class AppointmentScreen implements Initializable {
     private TableColumn<?, ?> customerIDColumn;
 
     @FXML
-    private TableColumn<?, ?> startDateColumn;
-    @FXML
-    private TableColumn<?, ?> endDateColumn;
+    private TableColumn<?, ?> DateColumn;
+
 
     @FXML
     private TableColumn<?, ?> startTimeColumn;
@@ -51,6 +56,9 @@ public class AppointmentScreen implements Initializable {
 
     @FXML
     private TableColumn<?, ?> descriptionColumn;
+
+    @FXML
+    private TableView<Appointments> appointmentsTable;
 
     @FXML
     private Button addAppointment;
@@ -90,6 +98,13 @@ public class AppointmentScreen implements Initializable {
 
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException {
+        Appointments a = appointmentsTable.getSelectionModel().getSelectedItem();
+        if(a == null){
+            return;
+        }
+
+       ModifyAppointment.appointmentToModify = a;
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/ModifyAppointment.fxml"));
         stage.setScene(new Scene(scene));
@@ -99,7 +114,9 @@ public class AppointmentScreen implements Initializable {
 
     @FXML
     void onActionDeleteAppointment(ActionEvent event) {
-
+        int deleteAppointmentID = appointmentsTable.getSelectionModel().getSelectedItem().getAppointmentID();
+        AppointmentsDOA.deleteAppointment(deleteAppointmentID);
+        appointmentsTable.setItems(AppointmentsDOA.getAllAppointments());
     }
 
     @FXML
@@ -113,7 +130,18 @@ public class AppointmentScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        appointmentsTable.setItems(AppointmentsDOA.getAllAppointments());
+        appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        contactColumn.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTimeDisplay"));
+        endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endTimeDisplay"));
+        DateColumn.setCellValueFactory(new PropertyValueFactory<>("dateDisplay"));
+        customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 
 }

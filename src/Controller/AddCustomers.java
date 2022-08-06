@@ -52,19 +52,15 @@ public class AddCustomers implements Initializable {
 
     @FXML
     void onActionSaveCustomer(ActionEvent event) throws IOException {
-
         String name = customerNameTextField.getText();
         String address = addressTextField.getText();
         String phoneNumber = phoneNumberTextField.getText();
         String postalCode = postalCodeTextField.getText();
-
         First_Level_Divisions fld = divisionsDropDownMenu.getValue();
 
 
 
-            CustomersDAO.addCustomer(name, address, phoneNumber, postalCode, fld.getDivisionID());
-
-        if(name.isEmpty()){
+        if (name.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
             alert.setContentText("Enter a Name");
@@ -72,7 +68,7 @@ public class AddCustomers implements Initializable {
             return;
         }
 
-        if(address.isEmpty()){
+        if (address.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
             alert.setContentText("Enter an Address");
@@ -80,7 +76,7 @@ public class AddCustomers implements Initializable {
             return;
         }
 
-        if(phoneNumber.isEmpty()){
+        if (phoneNumber.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
             alert.setContentText("Enter a Phone Number");
@@ -88,7 +84,7 @@ public class AddCustomers implements Initializable {
             return;
         }
 
-        if(postalCode.isEmpty()){
+        if (postalCode.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
             alert.setContentText("Enter a Postal Code");
@@ -96,13 +92,17 @@ public class AddCustomers implements Initializable {
             return;
         }
 
-        if(fld == null){
+        if (fld == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter Country Information");
+            alert.setContentText("Enter Country/Division Information");
             alert.showAndWait();
             return;
+
         }
+
+        CustomersDAO.addCustomer(name, address, phoneNumber, postalCode, fld.getDivisionID());
+
 
 
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

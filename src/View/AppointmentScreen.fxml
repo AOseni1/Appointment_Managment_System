@@ -11,7 +11,7 @@
    <children>
       <HBox alignment="CENTER" layoutX="3.0" prefHeight="408.0" prefWidth="982.0">
          <children>
-            <TableView maxHeight="285.0" maxWidth="1000.0" prefHeight="285.0" prefWidth="902.0">
+            <TableView fx:id="appointmentsTable" maxHeight="285.0" maxWidth="1000.0" prefHeight="285.0" prefWidth="902.0">
               <columns>
                 <TableColumn fx:id="appointmentIDColumn" prefWidth="99.0" text="Appointment ID" />
                 <TableColumn fx:id="titleColumn" prefWidth="51.0" text="Title" />
@@ -19,12 +19,11 @@
                   <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
                   <TableColumn fx:id="contactColumn" prefWidth="75.0" text="Contact" />
                   <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
-                  <TableColumn fx:id="startTimeColumn" prefWidth="75.0" text="Start Time" />
-                  <TableColumn fx:id="endTimeColumn" prefWidth="75.0" text="End Time" />
-                  <TableColumn fx:id="startDateColumn" prefWidth="75.0" text="Start Date" />
-                  <TableColumn fx:id="endDateColumn" prefWidth="75.0" text="End Date" />
-                  <TableColumn fx:id="customerIDColumn" prefWidth="75.0" text="Customer ID" />
-                  <TableColumn fx:id="userIDColumn" maxWidth="4000.0" prefWidth="75.0" text="UserID" />
+                  <TableColumn fx:id="startTimeColumn" prefWidth="74.0" text="Start Time" />
+                  <TableColumn fx:id="endTimeColumn" prefWidth="83.0" text="End Time" />
+                  <TableColumn fx:id="DateColumn" prefWidth="115.0" text="Start/End Date" />
+                  <TableColumn fx:id="customerIDColumn" prefWidth="89.0" text="Customer ID" />
+                  <TableColumn fx:id="userIDColumn" maxWidth="4000.0" prefWidth="90.0" text="UserID" />
               </columns>
                <HBox.margin>
                   <Insets />

@@ -17,7 +17,8 @@ public class ContactsDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int contactID = rs.getInt("Contact_ID");
-                Contacts contacts = new Contacts(contactID);
+                String contact_Name = rs.getString("contact_Name");
+                Contacts contacts = new Contacts(contactID, contact_Name);
                 allContacts.add(contacts);
             }
         } catch (SQLException throwables) {

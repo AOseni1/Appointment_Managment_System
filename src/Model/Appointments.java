@@ -1,7 +1,13 @@
 package Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Appointments {
@@ -9,20 +15,23 @@ public class Appointments {
     private String title;
     private String description;
     private String location;
-    private Timestamp start;
-    private Timestamp end;
+    private LocalDateTime start;
+    private LocalDateTime end;
     private String type;
     private int customerID;
     private int userID;
     private int contactID;
 
-    public Appointments(int appointmentID, String title, String description, String location, Timestamp start, Timestamp end, String type, int customerID, int userID, int contactID){
+    public static ObservableList<String> allTypes = FXCollections.observableArrayList("Tech Trance", "Progressive Trance", "Psytrance");
+
+    public Appointments(int appointmentID, String title, String description, String location, LocalDateTime start, LocalDateTime end, String type, int customerID, int userID, int contactID){
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
         this.location= location;
         this.start = start;
         this.end = end;
+
         this.type = type;
         this.customerID = customerID;
         this.userID = userID;
@@ -65,7 +74,7 @@ public class Appointments {
      *
      * @return start date
      */
-    public Timestamp getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
@@ -73,7 +82,7 @@ public class Appointments {
      *
      * @return end date
      */
-    public Timestamp getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
@@ -107,5 +116,17 @@ public class Appointments {
      */
     public int getContactID() {
         return contactID;
+    }
+
+    public LocalDate getDateDisplay(){
+     return start.toLocalDate();
+    }
+
+    public LocalTime getStartTimeDisplay(){
+        return start.toLocalTime();
+    }
+
+    public LocalTime getEndTimeDisplay(){
+        return end.toLocalTime();
     }
 }

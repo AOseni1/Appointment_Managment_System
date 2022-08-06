@@ -34,4 +34,8 @@ public class Users {
     public String getPassword() {
         return password;
     }
+
+    public String toString(){
+        return (userID + " - " + userName);
+    }
 }

@@ -27,7 +27,6 @@ import java.util.ServiceLoader;
 
 public class ManageCustomers implements Initializable {
 
-    public static Customers customerToDelete;
 
     Stage stage;
     Parent scene;

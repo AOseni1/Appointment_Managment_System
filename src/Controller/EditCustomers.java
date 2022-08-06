@@ -68,10 +68,6 @@ public class EditCustomers implements Initializable {
 
         First_Level_Divisions fld = (First_Level_Divisions) divisionsDropDownMenu.getValue();
 
-
-
-            CustomersDAO.editCustomer(name, address, phoneNumber, postalCode, fld.getDivisionID(),customer_ID);
-
         if(name.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -107,10 +103,13 @@ public class EditCustomers implements Initializable {
         if(fld == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter Country Information");
+            alert.setContentText("Enter Country/Division Information");
             alert.showAndWait();
             return;
         }
+
+        CustomersDAO.editCustomer(name, address, phoneNumber, postalCode, fld.getDivisionID(),customer_ID);
+
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/ManageCustomers.fxml"));
         stage.setScene(new Scene(scene));
