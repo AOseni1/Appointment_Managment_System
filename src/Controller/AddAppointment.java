@@ -103,7 +103,7 @@ public class AddAppointment implements Initializable {
         if (title.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Name");
+            alert.setContentText("Enter a Title");
             alert.showAndWait();
             return;
         }
@@ -111,14 +111,14 @@ public class AddAppointment implements Initializable {
         if (location.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Name");
+            alert.setContentText("Enter a Location");
             alert.showAndWait();
             return;
         }
         if (type == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Name");
+            alert.setContentText("Select a Type");
             alert.showAndWait();
             return;
         }
@@ -126,7 +126,7 @@ public class AddAppointment implements Initializable {
         if (contacts == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Name");
+            alert.setContentText("Select A Contact");
             alert.showAndWait();
             return;
         }
@@ -134,7 +134,7 @@ public class AddAppointment implements Initializable {
         if (customers == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Name");
+            alert.setContentText("Select s Customer");
             alert.showAndWait();
             return;
         }
@@ -142,7 +142,7 @@ public class AddAppointment implements Initializable {
         if (users == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Name");
+            alert.setContentText("Select a User");
             alert.showAndWait();
             return;
         }
@@ -150,7 +150,7 @@ public class AddAppointment implements Initializable {
         if (date == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Name");
+            alert.setContentText("Pick a Date");
             alert.showAndWait();
             return;
         }
@@ -158,7 +158,7 @@ public class AddAppointment implements Initializable {
         if (startTime == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Name");
+            alert.setContentText("Enter a Start Time");
             alert.showAndWait();
             return;
         }
@@ -166,7 +166,7 @@ public class AddAppointment implements Initializable {
         if (endTime == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Name");
+            alert.setContentText("Enter an End Time");
             alert.showAndWait();
             return;
         }

@@ -81,10 +81,6 @@ public class ModifyAppointment implements Initializable {
         stage.show();
     }
 
-    @FXML
-    void onActionDeleteAppointmentButton(ActionEvent event) {
-
-    }
 
     @FXML
     void onActionCancelModifyAppointment(ActionEvent event) throws IOException {
