@@ -38,7 +38,7 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <RadioButton fx:id="viewByWeek" mnemonicParsing="false" prefHeight="18.0" prefWidth="200.0" text="View By Week">
+            <RadioButton fx:id="viewByWeek" mnemonicParsing="false" onAction="#onWeek" prefHeight="18.0" prefWidth="200.0" text="View By Week">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -46,12 +46,12 @@
                   <ToggleGroup fx:id="viewTG" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="viewByMonth" mnemonicParsing="false" prefHeight="18.0" prefWidth="200.0" text="View By Month" toggleGroup="$viewTG">
+            <RadioButton fx:id="viewByMonth" mnemonicParsing="false" onAction="#onMonth" prefHeight="18.0" prefWidth="200.0" text="View By Month" toggleGroup="$viewTG">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </RadioButton>
-            <RadioButton fx:id="viewAll" maxWidth="200.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="150.0" text="View All " toggleGroup="$viewTG">
+            <RadioButton fx:id="viewAll" maxWidth="200.0" mnemonicParsing="false" onAction="#onViewAll" prefHeight="18.0" prefWidth="150.0" selected="true" text="View All " toggleGroup="$viewTG">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

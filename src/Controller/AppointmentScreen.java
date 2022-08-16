@@ -144,4 +144,15 @@ public class AppointmentScreen implements Initializable {
         userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 
+    public void onViewAll(ActionEvent actionEvent) {
+        appointmentsTable.setItems(AppointmentsDOA.getAllAppointments());
+    }
+
+    public void onMonth(ActionEvent actionEvent) {
+        appointmentsTable.setItems(AppointmentsDOA.getMonthAppointments());
+    }
+
+    public void onWeek(ActionEvent actionEvent) {
+        appointmentsTable.setItems(AppointmentsDOA.getWeekAppointments());
+    }
 }
