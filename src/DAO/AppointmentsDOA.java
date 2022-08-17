@@ -74,9 +74,10 @@ public class AppointmentsDOA {
         }
     }
 
-    public static void editAppointment(int appointmentID, String title, String description, String location, String type, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
-        String sql = "UPDATE appointments SET title = ?, description = ?, location = ?, type = ?, start = ?, end = ?, customer_ID = ?, user_ID = ?, contact_ID = ? WHERE appointment_ID = ?;";
+    public static void editAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerID, int userID, int contactID, int appointmentID) {
+        String sql = "UPDATE Appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?;";
         try {
+            System.out.println(appointmentID);
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setString(1, title);
             ps.setString(2, description);
@@ -88,7 +89,7 @@ public class AppointmentsDOA {
             ps.setInt(8, userID);
             ps.setInt(9, contactID);
             ps.setInt(10, appointmentID);
-            ps.execute();
+            ps.executeUpdate();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
