@@ -1,12 +1,10 @@
 package Controller;
 
-import DAO.AppointmentsDOA;
-import DAO.ContactsDAO;
-import DAO.CountriesDAO;
+import DAO.*;
 import Model.Appointments;
 import Model.Contacts;
 import Model.Countries;
-import Model.Users;
+import Model.Customers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,10 +21,11 @@ import java.util.ResourceBundle;
 
 public class Reports implements Initializable {
 
-    public TableView <Appointments>apptTable;
+    public TableView<Appointments> apptTable;
     public TableColumn locationColumn;
     public TableColumn userColumn;
     public TableColumn contactCOlumn;
+    public TextField countTextField;
     Stage stage;
     Parent scene;
 
@@ -52,7 +51,7 @@ public class Reports implements Initializable {
     private TableColumn<?, ?> startTimeColumn;
 
     @FXML
-    private ComboBox<?> reportsMonthComboBox;
+    private ComboBox<String> reportsMonthComboBox;
 
     @FXML
     private TableColumn<?, ?> titleColumn;
@@ -72,13 +71,13 @@ public class Reports implements Initializable {
     @FXML
     private TableColumn<?, ?> descriptionColumn;
 
-        @FXML
-        void onActionReturnToMainMenu(ActionEvent event) throws IOException {
-            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/View/LandingPage.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();
-        }
+    @FXML
+    void onActionReturnToMainMenu(ActionEvent event) throws IOException {
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/LandingPage.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -94,6 +93,7 @@ public class Reports implements Initializable {
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateDisplay"));
         customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         userColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        reportsMonthComboBox.setItems(Appointments.allMonths);
 
 
         contactComboBox.setItems(ContactsDAO.getAllContacts());
@@ -107,16 +107,23 @@ public class Reports implements Initializable {
         apptTable.setItems(AppointmentsDOA.getContactAppointments(c.getContactID()));
     }
 
-    public void getTypes(ActionEvent actionEvent){
-        reportsTypeComboBox.setItems(Appointments.allTypes);
 
-        String a = reportsTypeComboBox.getValue();
-        reportsTypeComboBox.setItems(Appointments.allTypes);
+    public int monthTypeComboBox(ActionEvent actionEvent) {
+        String monthnames = reportsMonthComboBox.getValue();
+        String types = reportsTypeComboBox.getValue();
+
+        if (monthnames == null || types == null) {
+            return 0;
+        } else
+            countTextField.setText(String.valueOf(AppointmentsDOA.monthTypeCount(types, monthnames)));
+            return AppointmentsDOA.monthTypeCount(types, monthnames);
 
     }
 
-    public void onCountriesCB(ActionEvent actionEvent){
-            Countries c = reportsCountryCountComboBox.getValue();
-        apptTable.setItems(AppointmentsDOA.getCountries(c.getCountryName()));
+    public void country(ActionEvent actionEvent) {
+        Countries c = reportsCountryCountComboBox.getValue();
+        apptTable.setItems(AppointmentsDOA.country(String.valueOf(c.getCountryID())));
+
     }
 }
+

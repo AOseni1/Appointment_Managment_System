@@ -1,5 +1,7 @@
 package DAO;
 
+import Model.Appointments;
+import Model.Countries;
 import Model.Customers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomersDAO {
-    public static  ObservableList<Customers> getAllCustomers() {
+    public static ObservableList<Customers> getAllCustomers() {
         ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
         String sql = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, customers.Division_ID, Country_ID FROM customers, first_level_divisions WHERE customers.Division_ID = first_level_divisions.Division_ID";
         try {
@@ -36,7 +38,7 @@ public class CustomersDAO {
     }
 
     public static void addCustomer(String name, String address, String phoneNumber, String postalCode, int divisionID) {
-    String sql = "INSERT into Customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) values(NULL, ?, ?, ?, ?, ?)";
+        String sql = "INSERT into Customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) values(NULL, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setString(1, name);
@@ -50,6 +52,7 @@ public class CustomersDAO {
             throwables.printStackTrace();
         }
     }
+
     public static void editCustomer(String name, String address, String phoneNumber, String postalCode, int divisionID, int customer_ID) {
         String sql = "UPDATE Customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?;";
         try {
@@ -66,6 +69,7 @@ public class CustomersDAO {
             throwables.printStackTrace();
         }
     }
+
     public static void deleteCustomer(int customer_ID) {
         String sql1 = "DELETE FROM appointments WHERE Customer_ID = ?;";
         try {
@@ -76,13 +80,14 @@ public class CustomersDAO {
             throwables.printStackTrace();
         }
 
-    String sql2 = "DELETE FROM customers WHERE Customer_ID = ?;";
+        String sql2 = "DELETE FROM customers WHERE Customer_ID = ?;";
         try {
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql2);
-        ps.setInt(1, customer_ID);
-        ps.execute();
-    } catch (SQLException throwables) {
-        throwables.printStackTrace();
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql2);
+            ps.setInt(1, customer_ID);
+            ps.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
-}
-}
+
+    }

@@ -7,28 +7,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxWidth="1665.0" prefHeight="401.0" prefWidth="1665.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Reports">
+<AnchorPane maxWidth="1330.0" prefHeight="401.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Reports">
    <children>
-      <VBox prefHeight="401.0" prefWidth="1664.0">
+      <VBox maxWidth="1000.0" prefHeight="401.0" prefWidth="1000.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="1010.0" spacing="55.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="88.0" prefWidth="1000.0" spacing="55.0">
                <padding>
                   <Insets left="20.0" />
                </padding>
                <children>
-                  <Label prefHeight="17.0" prefWidth="66.0" text="Month" />
-                  <ComboBox fx:id="reportsMonthComboBox" prefWidth="150.0" />
-                  <Label prefHeight="17.0" prefWidth="63.0" text="Type" />
-                  <ComboBox fx:id="reportsTypeComboBox" prefWidth="150.0" />
+                  <Label prefHeight="17.0" prefWidth="83.0" text="Month" />
+                  <ComboBox fx:id="reportsMonthComboBox" onAction="#monthTypeComboBox" prefWidth="150.0" />
+                  <Label prefHeight="17.0" prefWidth="75.0" text="Type" />
+                  <ComboBox fx:id="reportsTypeComboBox" onAction="#monthTypeComboBox" prefWidth="150.0" />
                   <Label prefHeight="17.0" prefWidth="105.0" text="Country" />
-                  <ComboBox fx:id="reportsCountryCountComboBox" prefWidth="150.0" />
-                  <Label prefHeight="17.0" prefWidth="86.0" text="Contact" />
+                  <ComboBox fx:id="reportsCountryCountComboBox" onAction="#country" prefWidth="150.0" />
+                  <Label prefHeight="17.0" prefWidth="91.0" text="Contact" />
                   <ComboBox fx:id="contactComboBox" onAction="#onContactCB" prefWidth="150.0" />
                </children>
             </HBox>
             <VBox alignment="CENTER" prefHeight="298.0" prefWidth="800.0">
                <children>
-                  <TableView fx:id="apptTable" maxWidth="1110.0" prefHeight="237.0" prefWidth="1000.0">
+                  <TableView fx:id="apptTable" maxWidth="1000.0" prefHeight="237.0" prefWidth="1041.0">
                     <columns>
                       <TableColumn fx:id="appointmentIDColumn" prefWidth="96.0" text="Appointment ID" />
                       <TableColumn fx:id="titleColumn" prefWidth="89.0" text="Title" />
@@ -37,7 +37,6 @@
                         <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
                         <TableColumn fx:id="startDateColumn" prefWidth="85.88812255859375" text="Start Date" />
                         <TableColumn fx:id="startTimeColumn" prefWidth="114.03192138671875" text="Start Time" />
-                        <TableColumn fx:id="endDateColumn" prefWidth="107.11444091796875" text="End Date" />
                         <TableColumn fx:id="endTimeColumn" prefWidth="66.67901611328125" text="End Time" />
                         <TableColumn fx:id="customerIDColumn" prefWidth="87.0" text="Customer ID" />
                         <TableColumn fx:id="userColumn" prefWidth="74.0" text="User ID" />
@@ -51,7 +50,7 @@
                               <Insets right="20.0" />
                            </padding>
                         </Label>
-                        <TextField />
+                        <TextField fx:id="countTextField" />
                         <Button fx:id="returnToMainMenuButton" mnemonicParsing="false" onAction="#onActionReturnToMainMenu" text="Return to Main Menu" />
                      </children>
                   </HBox>

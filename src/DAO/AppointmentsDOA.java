@@ -1,9 +1,9 @@
 package DAO;
 
+import Controller.Reports;
 import Model.Appointments;
 import Model.Countries;
 import Model.Customers;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,11 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class AppointmentsDOA {
-    public static  ObservableList<Appointments> getAllAppointments() {
+    public static ObservableList<Appointments> getAllAppointments() {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments";
         try {
@@ -43,7 +41,7 @@ public class AppointmentsDOA {
         return allAppointments;
     }
 
-    public static void addAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerID, int userID, int contactID ) {
+    public static void addAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
         String sql = "INSERT into Appointments(appointment_ID, title, description, location, type, start, end, customer_ID, user_ID, contact_ID) values(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -96,7 +94,7 @@ public class AppointmentsDOA {
         }
     }
 
-    public static  ObservableList<Appointments> getWeekAppointments() {
+    public static ObservableList<Appointments> getWeekAppointments() {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE yearweek(start) = yearweek(now())";
         try {
@@ -124,7 +122,7 @@ public class AppointmentsDOA {
         return allAppointments;
     }
 
-    public static  ObservableList<Appointments> getMonthAppointments() {
+    public static ObservableList<Appointments> getMonthAppointments() {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE month(start) = month(now())";
         try {
@@ -152,51 +150,74 @@ public class AppointmentsDOA {
         return allAppointments;
     }
 
+    public static int monthTypeCount(String type, String monthname) {
+        String sql = "SELECT count(*) AS total FROM appointments WHERE type = ? AND monthname(start) = ?";
+        try {
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setString(1, type);
+            ps.setString(2, monthname);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int getTotal = rs.getInt("total");
+                return getTotal;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+
     /**
      * lambda method filters through the appointment list and returning when a contact equals the contact ID
+     *
      * @param contactID
      * @return
      */
     public static ObservableList<Appointments> getContactAppointments(int contactID) {
         ObservableList<Appointments> apptList = getAllAppointments();
-        ObservableList<Appointments>filteredList = apptList.filtered(a -> {
-            if(a.getContactID() == contactID){
+        ObservableList<Appointments> filteredList = apptList.filtered(a -> {
+            if (a.getContactID() == contactID) {
                 return true;
             }
             return false;
         });
         return filteredList;
+
     }
 
-    /**
-     * lambda method filters through the appointment list and returning when a contact equals the contact ID
-     * @param type
-     * @return
-     */
-    public static ObservableList<Appointments> getTypes(String type) {
-        ObservableList<Appointments> typeList = getAllAppointments();
-        ObservableList<Appointments>filteredList = typeList.filtered(a -> {
-            if(a.getType() == type){
-                return true;
+
+    public static ObservableList<Appointments> country(String customer) {
+        ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM appointments WHERE customer_ID IN (SELECT customers.customer_ID FROM customers, first_level_divisions WHERE customers.division_ID = first_level_divisions.division_ID AND country_ID = ?)";
+        ;
+        try {
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setString(1, customer);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentID = rs.getInt("appointment_ID");
+                String title = rs.getString("title");
+                String description = rs.getString("Description");
+                String location = rs.getString("location");
+                String type = rs.getString("Type");
+                Timestamp start = rs.getTimestamp("Start");
+                Timestamp end = rs.getTimestamp("End");
+                int customerID = rs.getInt("customer_ID");
+                int userID = rs.getInt("user_ID");
+                int contactID = rs.getInt("contact_ID");
+
+
+                Appointments appointments = new Appointments(appointmentID, title, description, location, start.toLocalDateTime(), end.toLocalDateTime(), type, customerID, userID, contactID);
+                allAppointments.add(appointments);
             }
-            return false;
-        });
-        return filteredList;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return allAppointments;
     }
 
-    /**
-     * lambda method filters through the appointment list and returning when a contact equals the contact ID
-     * @param location
-     * @return
-     */
-    public static ObservableList<Appointments> getCountries(String location) {
-        ObservableList<Appointments> countryList = getAllAppointments();
-        ObservableList<Appointments>filteredList = countryList.filtered(a -> {
-            if(a.getLocation() == location){
-                return true;
-            }
-            return false;
-        });
-        return filteredList;
+
     }
-}
+

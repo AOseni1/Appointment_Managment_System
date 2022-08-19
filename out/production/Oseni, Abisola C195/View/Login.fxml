@@ -39,7 +39,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Label">
+                  <Label fx:id="label" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Label">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>

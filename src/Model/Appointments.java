@@ -23,6 +23,8 @@ public class Appointments {
     private int contactID;
 
     public static ObservableList<String> allTypes = FXCollections.observableArrayList("Tech Trance", "Progressive Trance", "Psytrance");
+    public static ObservableList<String> allMonths = FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" );
+
 
     public Appointments(int appointmentID, String title, String description, String location, LocalDateTime start, LocalDateTime end, String type, int customerID, int userID, int contactID){
         this.appointmentID = appointmentID;
@@ -117,6 +119,8 @@ public class Appointments {
     public int getContactID() {
         return contactID;
     }
+
+
 
     public LocalDate getDateDisplay(){
      return start.toLocalDate();

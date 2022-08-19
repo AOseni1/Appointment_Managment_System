@@ -1,6 +1,5 @@
 package DAO;
 
-import Model.Appointments;
 import Model.Countries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,4 +28,15 @@ public class CountriesDAO {
         return allCountries;
     }
 
-}
+    }
+//public static ObservableList<Countries> getCountryAppointments(String countryName) {
+//    ObservableList<Countries> countryList = getAllCountries();
+//    ObservableList<Countries>filteredList = countryList.filtered(a -> {
+//        if(a.getCountryName() == countryName){
+//            return true;
+//        }
+//        return false;
+//    });
+//    return filteredList;
+
+

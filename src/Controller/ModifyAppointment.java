@@ -90,76 +90,77 @@ public class ModifyAppointment implements Initializable {
         LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
         int appointment_ID = Integer.parseInt(modifyAppointmentIDTextField.getText());
 
-//        if (title.isEmpty()) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Input Error");
-//            alert.setContentText("Enter a Title");
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if (location.isEmpty()) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Input Error");
-//            alert.setContentText("Enter a Location");
-//            alert.showAndWait();
-//            return;
-//        }
-//        if (type == null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Input Error");
-//            alert.setContentText("Select a Type");
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if (contacts == null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Input Error");
-//            alert.setContentText("Select A Contact");
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if (customers == null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Input Error");
-//            alert.setContentText("Select s Customer");
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if (users == null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Input Error");
-//            alert.setContentText("Select a User");
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if (date == null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Input Error");
-//            alert.setContentText("Pick a Date");
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if (startTime == null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Input Error");
-//            alert.setContentText("Enter a Start Time");
-//            alert.showAndWait();
-//            return;
-//        }
-//
-//        if (endTime == null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Input Error");
-//            alert.setContentText("Enter an End Time");
-//            alert.showAndWait();
-//            return;
-//        }
+        if (title.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Title");
+            alert.showAndWait();
+            return;
+        }
+
+        if (location.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Location");
+            alert.showAndWait();
+            return;
+        }
+        if (type == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Select a Type");
+            alert.showAndWait();
+            return;
+        }
+
+        if (contacts == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Select A Contact");
+            alert.showAndWait();
+            return;
+        }
+
+        if (customers == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Select s Customer");
+            alert.showAndWait();
+            return;
+        }
+
+        if (users == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Select a User");
+            alert.showAndWait();
+            return;
+        }
+
+        if (date == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Pick a Date");
+            alert.showAndWait();
+            return;
+        }
+
+        if (startTime == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Start Time");
+            alert.showAndWait();
+            return;
+        }
+
+        if (endTime == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter an End Time");
+            alert.showAndWait();
+            return;
+        }
+
         AppointmentsDOA.editAppointment(title, description, location, type, Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime), customers.getCustomerID(), contacts.getContactID(), users.getUserID(), appointment_ID);
 
 
