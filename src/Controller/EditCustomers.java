@@ -55,7 +55,9 @@ public class EditCustomers implements Initializable {
     @FXML
     private ComboBox<Countries> countriesDropDOwnMenu;
 
-
+    /**
+     * Gets user input from fields
+     */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws IOException {
 
@@ -67,7 +69,9 @@ public class EditCustomers implements Initializable {
 
 
         First_Level_Divisions fld = (First_Level_Divisions) divisionsDropDownMenu.getValue();
-
+        /**
+         * Checks to see if corresponding input is empty. If it is empty, an error box appears amd tells user what to complete.
+         */
         if(name.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -108,6 +112,9 @@ public class EditCustomers implements Initializable {
             return;
         }
 
+        /**
+         * edits the information in the customer information in the database
+         */
         CustomersDAO.editCustomer(name, address, phoneNumber, postalCode, fld.getDivisionID(),customer_ID);
 
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -116,6 +123,11 @@ public class EditCustomers implements Initializable {
         stage.show();
     }
 
+    /**
+     * cancels any inputs and returns user to the Manage Customer screen
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -124,10 +136,20 @@ public class EditCustomers implements Initializable {
         stage.show();
     }
 
+    /**
+     * populates the country and divisions combo boxes
+     * @param actionEvent
+     */
     public void onCountryCombo(ActionEvent actionEvent) {
         Countries countries = countriesDropDOwnMenu.getValue();
         divisionsDropDownMenu.setItems(FirstLevelDivisionsDAO.getAllFirstLevelDivisions(countries.getCountryID()));
     }
+
+    /**
+     * Initializes the controller class
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
             customerIDTextField.setText(String.valueOf(customerToModify.getCustomerID()));

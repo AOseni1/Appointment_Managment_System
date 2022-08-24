@@ -32,8 +32,8 @@ public class ManageCustomers implements Initializable {
     Parent scene;
 
     /**
-    *Buttons
-    **/
+     * Buttons
+     **/
     @FXML
     private Button ModifyCustomersSaveChangesButton;
 
@@ -97,9 +97,9 @@ public class ManageCustomers implements Initializable {
     private TableColumn<?, ?> manageCustomersCountryIDColumn;
 
 
-    public TableView <Customers> manageCustomersTable;
+    public TableView<Customers> manageCustomersTable;
     /**
-     * Choice boxes
+     * Combo boxes
      */
     @FXML
     private ComboBox<Countries> manageCustomersCountriesDropDownMenu;
@@ -109,6 +109,7 @@ public class ManageCustomers implements Initializable {
 
     /**
      * Saves what is input into the text fields into the table
+     *
      * @param event
      * @throws IOException
      */
@@ -120,6 +121,7 @@ public class ManageCustomers implements Initializable {
 
     /**
      * Cancels the selection
+     *
      * @param event
      * @throws IOException
      */
@@ -130,12 +132,13 @@ public class ManageCustomers implements Initializable {
 
     /**
      * Shifts to the add customer view
+     *
      * @param event
      * @throws IOException
      */
     @FXML
     void onActionAddNewCustomer(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/AddCustomers.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
@@ -143,12 +146,13 @@ public class ManageCustomers implements Initializable {
 
     /**
      * Returns user to the landing page
+     *
      * @param event
      * @throws IOException
      */
     @FXML
     void onActionMainMenu(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/LandingPage.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
@@ -156,32 +160,52 @@ public class ManageCustomers implements Initializable {
 
     @FXML
     void onActionManageCustomersDelete(ActionEvent event) {
-        int deleteCustomerID = manageCustomersTable.getSelectionModel().getSelectedItem().getCustomerID();
-        CustomersDAO.deleteCustomer(deleteCustomerID);
-        manageCustomersTable.setItems(CustomersDAO.getAllCustomers());
-    }
+        if (manageCustomersTable.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setContentText("Please select a customer ID to delete.");
+            alert.showAndWait();
+        }else {
+            int deleteCustomerID = manageCustomersTable.getSelectionModel().getSelectedItem().getCustomerID();
+            //button result - wrong alert
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setContentText("You have deleted customer " + deleteCustomerID + ".");
+            alert.showAndWait();
 
+            CustomersDAO.deleteCustomer(deleteCustomerID);
+            manageCustomersTable.setItems(CustomersDAO.getAllCustomers());
+        }
+
+        }
+
+
+    /**
+     * Selects the custome to edit then takes the user to the Edit Customer page
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionManageCustomersEdit(ActionEvent event) throws IOException {
         Customers c = manageCustomersTable.getSelectionModel().getSelectedItem();
-        if(c == null){
+        if (c == null) {
             return;
         }
 
         EditCustomers.customerToModify = c;
 
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/EditCustomers.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-manageCustomersTable.setItems(CustomersDAO.getAllCustomers());
-manageCustomersCountriesDropDownMenu.setItems(CountriesDAO.getAllCountries());
+        manageCustomersTable.setItems(CustomersDAO.getAllCustomers());
+//        manageCustomersCountriesDropDownMenu.setItems(CountriesDAO.getAllCountries());
 
         manageCustomersCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         manageCustomersCustomerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -191,17 +215,17 @@ manageCustomersCountriesDropDownMenu.setItems(CountriesDAO.getAllCountries());
         manageCustomersDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
         manageCustomersCountryIDColumn.setCellValueFactory(new PropertyValueFactory<>("countryID"));
 
-
     }
 
 
-    public void onCountryCombo(ActionEvent actionEvent) {
-        Countries countries = manageCustomersCountriesDropDownMenu.getValue();
-        manageCustomersDivisionsDropDownMenu.setItems(FirstLevelDivisionsDAO.getAllFirstLevelDivisions(countries.getCountryID()));
-               }
-
-
-    public void onDivisionsCombo(ActionEvent actionEvent) {
-        First_Level_Divisions fld = manageCustomersDivisionsDropDownMenu.getValue();
-    }
+//    public void onCountryCombo(ActionEvent actionEvent) {
+//        Countries countries = manageCustomersCountriesDropDownMenu.getValue();
+//        manageCustomersDivisionsDropDownMenu.setItems(FirstLevelDivisionsDAO.getAllFirstLevelDivisions(countries.getCountryID()));
+//    }
+//
+//
+//    public void onDivisionsCombo(ActionEvent actionEvent) {
+//        First_Level_Divisions fld = manageCustomersDivisionsDropDownMenu.getValue();
+//    }
 }
+

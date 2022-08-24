@@ -24,6 +24,9 @@ public class AppointmentScreen implements Initializable {
     Stage stage;
     Parent scene;
 
+    /**
+     * Columns for the appointment table
+     */
     @FXML
     private TableColumn<?, ?> contactColumn;
 
@@ -36,12 +39,12 @@ public class AppointmentScreen implements Initializable {
     @FXML
     private TableColumn<?, ?> DateColumn;
 
-
     @FXML
     private TableColumn<?, ?> startTimeColumn;
 
     @FXML
     private TableColumn<?, ?> titleColumn;
+
     @FXML
     private TableColumn<?, ?> typeColumn;
 
@@ -57,8 +60,16 @@ public class AppointmentScreen implements Initializable {
     @FXML
     private TableColumn<?, ?> descriptionColumn;
 
+    /**
+     * Tableview fot the appointment table
+     */
+
     @FXML
     private TableView<Appointments> appointmentsTable;
+
+    /**
+     * Buttons
+     */
 
     @FXML
     private Button addAppointment;
@@ -75,6 +86,9 @@ public class AppointmentScreen implements Initializable {
     @FXML
     private Button returnToMainScreenButton;
 
+    /**
+     * Radio Buttons and corresponding toggle group
+     */
     @FXML
     private RadioButton viewByWeek;
 
@@ -87,7 +101,11 @@ public class AppointmentScreen implements Initializable {
     @FXML
     private ToggleGroup viewTG;
 
-
+    /**
+     * Takes user to the Add Appointment screen
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -96,6 +114,11 @@ public class AppointmentScreen implements Initializable {
         stage.show();
     }
 
+    /**
+     * Takes user to Modify Appointment screen but after first checking that an appointment was selected
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException {
         Appointments a = appointmentsTable.getSelectionModel().getSelectedItem();
@@ -112,13 +135,33 @@ public class AppointmentScreen implements Initializable {
 
     }
 
+    /** Deletes an appointment and displays information about the ID and Type of appointment that was deleted
+     *
+     * @param event
+     */
     @FXML
     void onActionDeleteAppointment(ActionEvent event) {
+
+
         int deleteAppointmentID = appointmentsTable.getSelectionModel().getSelectedItem().getAppointmentID();
+        String appointmentType = appointmentsTable.getSelectionModel().getSelectedItem().getType();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("You have deleted appointment " + deleteAppointmentID + " and appointment type " + appointmentType);
+        alert.showAndWait();
+
         AppointmentsDOA.deleteAppointment(deleteAppointmentID);
         appointmentsTable.setItems(AppointmentsDOA.getAllAppointments());
+
+
     }
 
+    /**
+     * Returns user to the landing page
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionReturnToMainScreen(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -144,14 +187,25 @@ public class AppointmentScreen implements Initializable {
         userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
     }
 
+    /**
+     * Allows users to view all appointments when they click the view all radio button
+     * @param actionEvent
+     */
     public void onViewAll(ActionEvent actionEvent) {
         appointmentsTable.setItems(AppointmentsDOA.getAllAppointments());
     }
 
+    /**
+     * Allows users to view all appointments in the current month when they click the view month radio button
+     * @param actionEvent
+     */
     public void onMonth(ActionEvent actionEvent) {
         appointmentsTable.setItems(AppointmentsDOA.getMonthAppointments());
     }
-
+    /**
+     * Allows users to view all appointments in the current week when they click the view all week radio button
+     * @param actionEvent
+     */
     public void onWeek(ActionEvent actionEvent) {
         appointmentsTable.setItems(AppointmentsDOA.getWeekAppointments());
     }

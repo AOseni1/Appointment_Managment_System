@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddAppointment">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddAppointment">
    <children>
       <VBox prefHeight="360.0" prefWidth="600.0">
          <children>
@@ -44,9 +45,9 @@
                   <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="descriptionTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="locationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="startTimeTextField" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <DatePicker fx:id="startDateCalendar" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <TextField fx:id="endTimeTextField" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <TextField fx:id="startTimeTextField" promptText="HH:MM" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <DatePicker fx:id="startDateCalendar" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TextField fx:id="endTimeTextField" promptText="HH:MM" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                   <Label text="End Time" GridPane.rowIndex="11" />
                   <ComboBox fx:id="contactIDComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <ComboBox fx:id="customerIDComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />

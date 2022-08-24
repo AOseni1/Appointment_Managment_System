@@ -77,19 +77,6 @@ public class ModifyAppointment implements Initializable {
 
 
         String title = modifyAppointmentTitleTextField.getText();
-        String description = modifyAppointmentDescriptionTextField.getText();
-        String location = modifyAppointmentLocationTextField.getText();
-        String type = typeComboBox.getValue();
-        Contacts contacts = contactIDComboBox.getValue();
-        Customers customers = customerIDComboBox.getValue();
-        Users users = userIDComboBox.getValue();
-        LocalDate date = modifyAppointmentStartDateCalendar.getValue();
-        LocalTime startTime = LocalTime.parse(modifyAppointmentStartTimeTextField.getText());
-        LocalTime endTime = LocalTime.parse(modifyAppointmentEndTimeTextField.getText());
-        LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
-        LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
-        int appointment_ID = Integer.parseInt(modifyAppointmentIDTextField.getText());
-
         if (title.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -97,7 +84,15 @@ public class ModifyAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-
+        String description = modifyAppointmentDescriptionTextField.getText();
+        if (description.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a Description");
+            alert.showAndWait();
+            return;
+        }
+        String location = modifyAppointmentLocationTextField.getText();
         if (location.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -105,6 +100,7 @@ public class ModifyAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
+        String type = typeComboBox.getValue();
         if (type == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -112,7 +108,7 @@ public class ModifyAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-
+        Contacts contacts = contactIDComboBox.getValue();
         if (contacts == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -120,7 +116,7 @@ public class ModifyAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-
+        Customers customers = customerIDComboBox.getValue();
         if (customers == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -128,7 +124,7 @@ public class ModifyAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-
+        Users users = userIDComboBox.getValue();
         if (users == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -136,7 +132,7 @@ public class ModifyAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-
+        LocalDate date = modifyAppointmentStartDateCalendar.getValue();
         if (date == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -144,19 +140,34 @@ public class ModifyAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
+        if (modifyAppointmentStartTimeTextField.getText().equals("") || !(modifyAppointmentStartTimeTextField.getText() instanceof String)) {
 
-        if (startTime == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter a Start Time");
+            alert.setContentText("Enter a valid start time");
             alert.showAndWait();
             return;
         }
+        LocalTime startTime = LocalTime.parse(modifyAppointmentStartTimeTextField.getText());
+        if (modifyAppointmentEndTimeTextField.getText().equals("") || !(modifyAppointmentEndTimeTextField.getText() instanceof String)) {
 
-        if (endTime == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
-            alert.setContentText("Enter an End Time");
+            alert.setContentText("ENter a valid end time");
+            alert.showAndWait();
+            return;
+        }
+        LocalTime endTime = LocalTime.parse(modifyAppointmentEndTimeTextField.getText());
+        LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
+        int appointment_ID = Integer.parseInt(modifyAppointmentIDTextField.getText());
+
+
+        //doing the overlap check and start time before end time and a business hours check(convert to eastern time)
+        if(AppointmentsDOA.checkForOverlap(startDateTime, endDateTime, customers.getCustomerID(), appointment_ID)){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Overlap Error");
+            alert.setContentText("Appointment overlaps with another");
             alert.showAndWait();
             return;
         }

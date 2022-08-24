@@ -1,9 +1,6 @@
 package DAO;
 
-import Controller.Reports;
 import Model.Appointments;
-import Model.Countries;
-import Model.Customers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 
 public class AppointmentsDOA {
     public static ObservableList<Appointments> getAllAppointments() {
@@ -218,6 +218,39 @@ public class AppointmentsDOA {
         return allAppointments;
     }
 
+    /**
+     * Check for overlapping appointments
+     */
 
+    public static boolean checkForOverlap(LocalDateTime pStart, LocalDateTime pEnd, int customerID, int appointment_id) {
+//        Go through each appointment for all appointments in the DB
+        ObservableList<Appointments> App = getAllAppointments();
+        for (Appointments a : App) {
+            if (a.getCustomerID() != customerID) {
+                continue;
+            }
+            if (a.getAppointmentID() == appointment_id) {
+                continue;
+            }
+            LocalDateTime aStart = a.getStart();
+            LocalDateTime aEnd = a.getEnd();
+
+            if ((aStart.isAfter(pStart) || aStart.isEqual(pStart)) && aStart.isBefore(pEnd)) {
+                return true;
+            }
+            if ((aEnd.isAfter(pStart)) && (aEnd.isBefore(pEnd) || (aEnd.isEqual(pEnd)))) {
+                return true;
+            }
+            if ((aStart.isBefore(pStart) || aStart.isEqual(pStart)) && ((aEnd.isAfter(pEnd)) || (aEnd.isEqual(pEnd)))) {
+                return true;
+            }
+        }
+        return false;
     }
+
+//    public static boolean checkBuinessHours(ZonedDateTime localOpen, ZonedDateTime localClosed, LocalTime open, LocalTime closed) {
+//        return true;
+
+}
+
 

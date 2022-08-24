@@ -18,28 +18,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controls the Add Customer screen
+ */
 public class AddCustomers implements Initializable {
 
     Stage stage;
     Parent scene;
 
+    /**
+     * Text fields
+     */
     @FXML
     private TextField customerIDTextField;
 
     @FXML
     private TextField phoneNumberTextField;
-
-    @FXML
-    private TextField addressTextField;
-
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private ComboBox<First_Level_Divisions> divisionsDropDownMenu;
-
-    @FXML
-    private Button saveCustomerButton;
 
     @FXML
     private TextField customerNameTextField;
@@ -48,10 +42,35 @@ public class AddCustomers implements Initializable {
     private TextField postalCodeTextField;
 
     @FXML
-    private ComboBox<Countries> countriesDropDOwnMenu;
+    private TextField addressTextField;
+
+    /**
+     * Buttons
+     */
+    @FXML
+    private Button cancelButton;
 
     @FXML
+    private Button saveCustomerButton;
+
+    /**
+     * Combo Boxes
+     */
+    @FXML
+    private ComboBox<First_Level_Divisions> divisionsDropDownMenu;
+
+    @FXML
+    private ComboBox<Countries> countriesDropDOwnMenu;
+
+    /**
+     * Saves user input and returns to customer screen
+     * @param event
+     */
+    @FXML
     void onActionSaveCustomer(ActionEvent event) throws IOException {
+        /**
+         * Gets user input from fields
+         */
         String name = customerNameTextField.getText();
         String address = addressTextField.getText();
         String phoneNumber = phoneNumberTextField.getText();
@@ -59,6 +78,9 @@ public class AddCustomers implements Initializable {
         First_Level_Divisions fld = divisionsDropDownMenu.getValue();
 
 
+        /**
+         * Checks to see if corresponding input is empty. If it is empty, an error box appears amd tells user what to complete.
+         */
 
         if (name.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -101,15 +123,26 @@ public class AddCustomers implements Initializable {
 
         }
 
+/**
+ * Adds the new customer information into the database
+ */
         CustomersDAO.addCustomer(name, address, phoneNumber, postalCode, fld.getDivisionID());
 
 
-
+/**
+ * Returns to the manage customers screen
+ */
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/ManageCustomers.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
+    /**
+     * Cancels actions and returns to manage customers screen
+     * @param event
+     * @throws IOException
+     */
 
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
@@ -119,10 +152,20 @@ public class AddCustomers implements Initializable {
         stage.show();
     }
 
+    /**
+     * Populates the country and divisions combo boxes
+     * @param actionEvent
+     */
     public void onCountryCombo(ActionEvent actionEvent) {
         Countries countries = countriesDropDOwnMenu.getValue();
         divisionsDropDownMenu.setItems(FirstLevelDivisionsDAO.getAllFirstLevelDivisions(countries.getCountryID()));
     }
+
+    /**
+     * Initializes the controller
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         countriesDropDOwnMenu.setItems(CountriesDAO.getAllCountries());
