@@ -39,8 +39,8 @@
                         <Label text="Contact ID" GridPane.rowIndex="5" />
                         <Label text="Customer ID" GridPane.rowIndex="6" />
                         <Label text="User ID" GridPane.rowIndex="7" />
-                        <Label text="Start Date" GridPane.rowIndex="8" />
-                        <Label text="End Date" GridPane.rowIndex="9" />
+                        <Label text="Date" GridPane.rowIndex="8" />
+                        <Label text="Enter in HH:mm" GridPane.rowIndex="9" />
                         <Label text="Start Time" GridPane.rowIndex="10" />
                         <Label text="End Time" GridPane.rowIndex="11" />
                         <TextField fx:id="modifyAppointmentIDTextField" GridPane.columnIndex="1" />
@@ -48,8 +48,8 @@
                         <TextField fx:id="modifyAppointmentDescriptionTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="modifyAppointmentLocationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <DatePicker fx:id="modifyAppointmentStartDateCalendar" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <TextField fx:id="modifyAppointmentStartTimeTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <TextField fx:id="modifyAppointmentEndTimeTextField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <TextField fx:id="modifyAppointmentStartTimeTextField" promptText="HH:MM" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <TextField fx:id="modifyAppointmentEndTimeTextField" promptText="HH:MM" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                   <ComboBox fx:id="contactIDComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <ComboBox fx:id="customerIDComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <ComboBox fx:id="userIDComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />

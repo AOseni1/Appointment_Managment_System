@@ -71,6 +71,11 @@ public class Reports implements Initializable {
     @FXML
     private TableColumn<?, ?> descriptionColumn;
 
+    /**
+     * This is the button that returns the user to the Landing Page screen/view
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onActionReturnToMainMenu(ActionEvent event) throws IOException {
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -79,6 +84,11 @@ public class Reports implements Initializable {
         stage.show();
     }
 
+    /**
+     * This populates the table
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         apptTable.setItems(AppointmentsDOA.getAllAppointments());
@@ -102,12 +112,20 @@ public class Reports implements Initializable {
 
     }
 
+    /**
+     * This populates the contacts combo box
+     * @param actionEvent
+     */
     public void onContactCB(ActionEvent actionEvent) {
         Contacts c = contactComboBox.getValue();
         apptTable.setItems(AppointmentsDOA.getContactAppointments(c.getContactID()));
     }
 
-
+    /**
+     * This populates the month and type combo boxes and makes sure that neither is null before generating a count
+     * @param actionEvent
+     * @return
+     */
     public int monthTypeComboBox(ActionEvent actionEvent) {
         String monthnames = reportsMonthComboBox.getValue();
         String types = reportsTypeComboBox.getValue();
@@ -120,6 +138,10 @@ public class Reports implements Initializable {
 
     }
 
+    /**
+     * This populates the country combo box
+     * @param actionEvent
+     */
     public void country(ActionEvent actionEvent) {
         Countries c = reportsCountryCountComboBox.getValue();
         apptTable.setItems(AppointmentsDOA.country(String.valueOf(c.getCountryID())));

@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FirstLevelDivisionsDAO {
-
+    /**
+     * This creates an observable list for all first level divisions in the database.
+     */
     public static ObservableList<First_Level_Divisions> getAllFirstLevelDivisions(int country_ID){
         ObservableList <First_Level_Divisions> allFirstLevelDivisions = FXCollections.observableArrayList();
         String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = ?";

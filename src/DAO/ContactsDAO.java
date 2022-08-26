@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This creates an observable list for all contacts in the database.
+ */
 public class ContactsDAO {
     public static ObservableList<Contacts> getAllContacts(){
         ObservableList <Contacts> allContacts = FXCollections.observableArrayList();

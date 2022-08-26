@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentScreen implements Initializable {
@@ -103,12 +104,13 @@ public class AppointmentScreen implements Initializable {
 
     /**
      * Takes user to the Add Appointment screen
+     *
      * @param event
      * @throws IOException
      */
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/AddAppointment.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
@@ -116,46 +118,66 @@ public class AppointmentScreen implements Initializable {
 
     /**
      * Takes user to Modify Appointment screen but after first checking that an appointment was selected
+     *
      * @param event
      * @throws IOException
      */
     @FXML
     void onActionModifyAppointment(ActionEvent event) throws IOException {
         Appointments a = appointmentsTable.getSelectionModel().getSelectedItem();
-        if(a == null){
+        if (a == null) {
             return;
         }
 
-       ModifyAppointment.appointmentToModify = a;
+        ModifyAppointment.appointmentToModify = a;
 
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/ModifyAppointment.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
 
     }
 
-    /** Deletes an appointment and displays information about the ID and Type of appointment that was deleted
-     *
+    /**
+     * Deletes an appointment and displays information about the ID and Type of appointment that was deleted
+     * Also displays an error message if the user did not make a selection
      * @param event
      */
     @FXML
     void onActionDeleteAppointment(ActionEvent event) {
 
+        try {
+            int deleteAppointmentID = appointmentsTable.getSelectionModel().getSelectedItem().getAppointmentID();
+            String appointmentType = appointmentsTable.getSelectionModel().getSelectedItem().getType();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete?");
+            alert.setContentText("Are you sure you want to delete?");
+            Optional<ButtonType> result = alert.showAndWait();
+            ButtonType button = result.orElse(ButtonType.CANCEL);
 
-        int deleteAppointmentID = appointmentsTable.getSelectionModel().getSelectedItem().getAppointmentID();
-        String appointmentType = appointmentsTable.getSelectionModel().getSelectedItem().getType();
+            if (button == ButtonType.OK) {
+                alert.setContentText("Deleted appt ID: " + deleteAppointmentID + " Type: " + appointmentType);
+                alert.showAndWait();
+                AppointmentsDOA.deleteAppointment(deleteAppointmentID);
+                appointmentsTable.setItems(AppointmentsDOA.getAllAppointments());
+            } else {
+                alert.setContentText("Did NOT delete appt ID: " + deleteAppointmentID + " Type: " + appointmentType);
+                alert.showAndWait();
+            }
+            } catch(NullPointerException e) {
+            if (appointmentsTable.getSelectionModel().getSelectedItem() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR");
+                alert.setContentText("Please select an appointment to delete.");
+                alert.showAndWait();
+            }
+        }catch (Exception e) {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setContentText("You have deleted appointment " + deleteAppointmentID + " and appointment type " + appointmentType);
-        alert.showAndWait();
+        }
 
-        AppointmentsDOA.deleteAppointment(deleteAppointmentID);
-        appointmentsTable.setItems(AppointmentsDOA.getAllAppointments());
+            }
 
 
-    }
 
     /**
      * Returns user to the landing page
@@ -170,7 +192,11 @@ public class AppointmentScreen implements Initializable {
         stage.show();
     }
 
-
+    /**
+     * Initializes the controller class and sets the values into the table
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appointmentsTable.setItems(AppointmentsDOA.getAllAppointments());

@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CountriesDAO {
-
+    /**
+     * this creates an observable list for all countries in the database.
+     */
     public static ObservableList <Countries> getAllCountries(){
         ObservableList <Countries> allCountries = FXCollections.observableArrayList();
         String sql = "SELECT * FROM countries";
@@ -29,14 +31,6 @@ public class CountriesDAO {
     }
 
     }
-//public static ObservableList<Countries> getCountryAppointments(String countryName) {
-//    ObservableList<Countries> countryList = getAllCountries();
-//    ObservableList<Countries>filteredList = countryList.filtered(a -> {
-//        if(a.getCountryName() == countryName){
-//            return true;
-//        }
-//        return false;
-//    });
-//    return filteredList;
+
 
 

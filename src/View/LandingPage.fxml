@@ -6,7 +6,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LandingPage">
    <children>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="50.0">
@@ -14,6 +13,7 @@
             <Button fx:id="landingPageCustomersButton" mnemonicParsing="false" onAction="#onActionLandingPageCustomersButton" prefWidth="95.0" text="Customers" />
             <Button fx:id="landingPageAppointmentsButton" mnemonicParsing="false" onAction="#onActionLandingPageAppointmentsButton" text="Appointments" />
             <Button fx:id="landingPageReportsButton" mnemonicParsing="false" onAction="#onActionLandingPageReportsButton" prefWidth="95.0" text="Reports" />
+            <Button fx:id="exitButton" alignment="CENTER" mnemonicParsing="false" onAction="#exitApplication" prefHeight="27.0" prefWidth="91.0" text="Exit" />
          </children>
       </VBox>
    </children>

@@ -38,8 +38,8 @@
                   <Label text="Contact ID" GridPane.rowIndex="5" />
                   <Label text="Customer ID" GridPane.rowIndex="6" />
                   <Label text="User ID" GridPane.rowIndex="7" />
-                  <Label text="Start Date" GridPane.rowIndex="8" />
-                  <Label text="End Date" GridPane.rowIndex="9" />
+                  <Label text="Date" GridPane.rowIndex="8" />
+                  <Label text="Enter in HH:mm" GridPane.rowIndex="9" />
                   <Label text="Start Time" GridPane.rowIndex="10" />
                   <TextField fx:id="appointmentIDTextField" GridPane.columnIndex="1" />
                   <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />

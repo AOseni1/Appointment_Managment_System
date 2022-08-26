@@ -41,7 +41,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the appointment ID
      * @return appointment ID
      */
     public int getAppointmentID() {
@@ -49,7 +49,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the title
      * @return title
      */
     public String getTitle() {
@@ -57,7 +57,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the description
      * @return description
      */
     public String getDescription() {
@@ -65,7 +65,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the location
      * @return location
      */
     public String getLocation() {
@@ -73,7 +73,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the start date
      * @return start date
      */
     public LocalDateTime getStart() {
@@ -81,7 +81,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the end date
      * @return end date
      */
     public LocalDateTime getEnd() {
@@ -89,7 +89,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the type
      * @return type
      */
     public String getType() {
@@ -97,7 +97,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the customer ID
      * @return customer ID
      */
     public int getCustomerID() {
@@ -105,7 +105,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the user ID
      * @return user ID
      */
     public int getUserID() {
@@ -113,7 +113,7 @@ public class Appointments {
     }
 
     /**
-     *
+     * This gets the contact ID
      * @return contact ID
      */
     public int getContactID() {
@@ -121,7 +121,10 @@ public class Appointments {
     }
 
 
-
+    /**
+     * This gets the date times
+     * @return
+     */
     public LocalDate getDateDisplay(){
      return start.toLocalDate();
     }

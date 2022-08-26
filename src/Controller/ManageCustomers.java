@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.AppointmentsDOA;
 import DAO.CountriesDAO;
 import DAO.CustomersDAO;
 import DAO.FirstLevelDivisionsDAO;
@@ -158,26 +159,47 @@ public class ManageCustomers implements Initializable {
         stage.show();
     }
 
+    /**
+     * This is for deleting a customer. If there is no selection, a propt asks the user to make a selection.
+     * If a selection is made, th user is asked to confirm that they want to delete.
+     * If the user confirms, then the selection is delted.
+     * If the user does ot confirm then the selection is no deleted.
+     * @param event
+     */
     @FXML
     void onActionManageCustomersDelete(ActionEvent event) {
-        if (manageCustomersTable.getSelectionModel().getSelectedItem() == null){
+
+        try {
+            System.out.println(manageCustomersTable.getSelectionModel().getSelectedItem().getCustomerID());
+            int deleteCustomerID = manageCustomersTable.getSelectionModel().getSelectedItem().getCustomerID();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete?");
+            alert.setContentText("Are you sure you want to delete?");
+            Optional<ButtonType> result = alert.showAndWait();
+            ButtonType button = result.orElse(ButtonType.CANCEL);
+            if (button == ButtonType.OK) {
+                alert.setContentText("Deleted customer ID: " + deleteCustomerID);
+                alert.showAndWait();
+                CustomersDAO.deleteCustomer(deleteCustomerID);
+                manageCustomersTable.setItems(CustomersDAO.getAllCustomers());
+            } else {
+                alert.setContentText("Did NOT delete customer ID: " + deleteCustomerID);
+                alert.showAndWait();
+            }
+
+        } catch (NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
-            alert.setContentText("Please select a customer ID to delete.");
+            alert.setContentText("Please select a customer to delete.");
             alert.showAndWait();
-        }else {
-            int deleteCustomerID = manageCustomersTable.getSelectionModel().getSelectedItem().getCustomerID();
-            //button result - wrong alert
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("You have deleted customer " + deleteCustomerID + ".");
-            alert.showAndWait();
-
-            CustomersDAO.deleteCustomer(deleteCustomerID);
-            manageCustomersTable.setItems(CustomersDAO.getAllCustomers());
-        }
+        } catch (Exception e) {
 
         }
+    }
+
+
+
 
 
     /**

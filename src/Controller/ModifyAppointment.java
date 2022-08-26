@@ -16,10 +16,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class ModifyAppointment implements Initializable {
     public static Appointments appointmentToModify;
@@ -168,6 +167,29 @@ public class ModifyAppointment implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Overlap Error");
             alert.setContentText("Appointment overlaps with another");
+            alert.showAndWait();
+            return;
+        }
+
+        ZonedDateTime openEST = ZonedDateTime.of(date, LocalTime.of(8, 00), ZoneId.of("America/New_York"));
+        ZonedDateTime closedEST = ZonedDateTime.of(date, LocalTime.of(22, 00), ZoneId.of("America/New_York"));
+        ZonedDateTime localOpen = openEST.withZoneSameInstant(ZoneId.of(TimeZone.getDefault().getID()));
+        ZonedDateTime localClosed = closedEST.withZoneSameInstant(ZoneId.of(TimeZone.getDefault().getID()));
+        LocalTime open = localOpen.toLocalTime();
+        LocalTime closed = localClosed.toLocalTime();
+
+        if (!startTime.isBefore(endTime)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Time Error");
+            alert.setContentText("Start must be before end");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!AppointmentsDOA.checkBusinessHours(open, closed, startTime, endTime)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Time Error");
+            alert.setContentText("Choose a time when our business is open");
             alert.showAndWait();
             return;
         }

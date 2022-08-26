@@ -48,6 +48,7 @@ public class Login implements Initializable {
         String password = passwordTextField.getText();
         int userIdentification = UsersDAO.userPasswordCheck(username, password);
 
+
         ObservableList<Appointments> getAllAppointments = AppointmentsDOA.getAllAppointments();
         LocalDateTime currTimeM15 = LocalDateTime.now().minusMinutes(15);
         LocalDateTime currTimeP15 = LocalDateTime.now().plusMinutes(15);
@@ -57,12 +58,17 @@ public class Login implements Initializable {
         boolean appt15 = false;
 
         if (userIdentification > 0) {
-
+/**
+ * This logs each login attempt
+ * When an attempt is invalid, a pop up asks for a correct login
+ * When an appointment is valid, it takes the user to he Landing Page screen/view
+ * This also checks to see if there is an appointment within 15 min of the login
+ */
             try {
                 PrintWriter pw = new PrintWriter(new FileOutputStream(
                         new File("login_activity.txt"),
                         true /* append = true */));
-                pw.append("\t This is an valid login by " + username + " at " + Timestamp.valueOf(LocalDateTime.now()) +" \n");
+                pw.append("\t This is an successful login by " + username + " at " + Timestamp.valueOf(LocalDateTime.now()) +" \n");
                 pw.close();
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
@@ -96,7 +102,7 @@ public class Login implements Initializable {
                 PrintWriter pw = new PrintWriter(new FileOutputStream(
                         new File("login_activity.txt"),
                         true /* append = true */));
-                pw.append("\t This is an invalid login by " + username + " at" + Timestamp.valueOf(LocalDateTime.now()) +" \n");
+                pw.append("\t This is an unsuccessful login by " + username + " at" + Timestamp.valueOf(LocalDateTime.now()) +" \n");
                 pw.close();
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
@@ -111,17 +117,13 @@ public class Login implements Initializable {
     }
 
 
-
-
-
+    /**
+     * This checks for and displays the user's time zone
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         label.setText(ZoneId.systemDefault().toString());
-        System.out.println(myRB.getString("USERNAME"));
-        System.out.println(myRB.getString("PASSWORD"));
-        System.out.println(myRB.getString("LOGIN"));
-        System.out.println(myRB.getString("TIMEZONE"));
-        System.out.println(myRB.getString("ERROR"));
-        System.out.println(myRB.getString("ERRORMESSAGE"));
     }
 }

@@ -10,8 +10,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
 
+/**
+ * This creates an observable list for all appointments in the database.
+ */
 public class AppointmentsDOA {
     public static ObservableList<Appointments> getAllAppointments() {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
@@ -41,6 +43,18 @@ public class AppointmentsDOA {
         return allAppointments;
     }
 
+    /**
+     * Method that allows for appointment addition
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param customerID
+     * @param userID
+     * @param contactID
+     */
     public static void addAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
         String sql = "INSERT into Appointments(appointment_ID, title, description, location, type, start, end, customer_ID, user_ID, contact_ID) values(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -61,6 +75,10 @@ public class AppointmentsDOA {
         }
     }
 
+    /**
+     * Method that allows for appointment deletion
+     * @param appointment_ID
+     */
     public static void deleteAppointment(int appointment_ID) {
         String sql1 = "DELETE FROM appointments WHERE Appointment_ID = ?;";
         try {
@@ -72,6 +90,19 @@ public class AppointmentsDOA {
         }
     }
 
+    /**
+     * Method that allos the user to edit/modify appointments
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param start
+     * @param end
+     * @param customerID
+     * @param userID
+     * @param contactID
+     * @param appointmentID
+     */
     public static void editAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerID, int userID, int contactID, int appointmentID) {
         String sql = "UPDATE Appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?;";
         try {
@@ -94,6 +125,10 @@ public class AppointmentsDOA {
         }
     }
 
+    /**
+     * Method that allows user to have appointment by week view
+     * @return
+     */
     public static ObservableList<Appointments> getWeekAppointments() {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE yearweek(start) = yearweek(now())";
@@ -122,6 +157,10 @@ public class AppointmentsDOA {
         return allAppointments;
     }
 
+    /**
+     * Method that allows user to have appointment by month view
+     * @return
+     */
     public static ObservableList<Appointments> getMonthAppointments() {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE month(start) = month(now())";
@@ -150,6 +189,13 @@ public class AppointmentsDOA {
         return allAppointments;
     }
 
+    /**
+     * Method that allows user to have a count of appointments by month and type
+     * @param type
+     * @param monthname
+     * @return
+     */
+
     public static int monthTypeCount(String type, String monthname) {
         String sql = "SELECT count(*) AS total FROM appointments WHERE type = ? AND monthname(start) = ?";
         try {
@@ -174,6 +220,13 @@ public class AppointmentsDOA {
      * @param contactID
      * @return
      */
+
+//    /**
+//     * lambda method filters through the appointment list and returning when a contact equals the contact ID
+//     *
+//     * @param contactID
+//     * @return
+//     */
     public static ObservableList<Appointments> getContactAppointments(int contactID) {
         ObservableList<Appointments> apptList = getAllAppointments();
         ObservableList<Appointments> filteredList = apptList.filtered(a -> {
@@ -186,7 +239,12 @@ public class AppointmentsDOA {
 
     }
 
-
+    /**
+     * Method that allows the user view reports by country
+     * This is my additional report
+     * @param customer
+     * @return
+     */
     public static ObservableList<Appointments> country(String customer) {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT * FROM appointments WHERE customer_ID IN (SELECT customers.customer_ID FROM customers, first_level_divisions WHERE customers.division_ID = first_level_divisions.division_ID AND country_ID = ?)";
@@ -219,7 +277,7 @@ public class AppointmentsDOA {
     }
 
     /**
-     * Check for overlapping appointments
+     * This is the method that checks for overlapping appointments
      */
 
     public static boolean checkForOverlap(LocalDateTime pStart, LocalDateTime pEnd, int customerID, int appointment_id) {
@@ -248,8 +306,24 @@ public class AppointmentsDOA {
         return false;
     }
 
-//    public static boolean checkBuinessHours(ZonedDateTime localOpen, ZonedDateTime localClosed, LocalTime open, LocalTime closed) {
-//        return true;
+    /**
+     * This is the method that checks if an appointment is within the business hours
+     * @param bOpen
+     * @param bClosed
+     * @param presentStartTime
+     * @param presentEndTime
+     * @return
+     */
+    public static boolean checkBusinessHours(LocalTime bOpen, LocalTime bClosed, LocalTime presentStartTime, LocalTime presentEndTime) {
+//
+        if (presentStartTime.isBefore(bOpen) || presentStartTime.isAfter(bClosed)) {
+            return false;
+        }
+        if ((presentEndTime.isBefore(bOpen) || presentEndTime.isAfter(bClosed))) {
+            return false;
+        }
+        return true;
+    }
 
 }
 

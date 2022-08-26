@@ -167,63 +167,77 @@ public class AddAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
-
-        if (startTimeTextField.getText().equals("") || !(startTimeTextField.getText() instanceof String)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Input Error");
-                alert.setContentText("Enter a valid start time");
-                alert.showAndWait();
-                return;
+        try{
+            LocalTime.parse(startTimeTextField.getText());
+        } catch(DateTimeParseException ex){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a valid start time");
+            alert.showAndWait();
+            return;
         }
-            LocalTime startTime = LocalTime.parse(startTimeTextField.getText());
-            if (endTimeTextField.getText().equals("") || !(endTimeTextField.getText() instanceof String)) {
+        LocalTime startTime = LocalTime.parse(startTimeTextField.getText());
 
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Input Error");
-                alert.setContentText("Enter a valid end time");
-                alert.showAndWait();
-                return;
-            }
-            LocalTime endTime = LocalTime.parse(endTimeTextField.getText());
-            LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
-            LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
+        try{
+            LocalTime.parse(endTimeTextField.getText());
+        } catch(DateTimeParseException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Enter a valid end time");
+            alert.showAndWait();
+            return;
+        }
+        LocalTime endTime = LocalTime.parse(endTimeTextField.getText());
 
-            /**
-             * checking for overlapping times and showing error if times overlap
-             */
-            if (AppointmentsDOA.checkForOverlap(startDateTime, endDateTime, customers.getCustomerID(), 0)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Overlap Error");
-                alert.setContentText("Appointment overlaps with another");
-                alert.showAndWait();
-                return;
-            }
+        LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
+
+        /**
+         * checking for overlapping times and showing error if times overlap
+         */
+        if (AppointmentsDOA.checkForOverlap(startDateTime, endDateTime, customers.getCustomerID(), 0)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Overlap Error");
+            alert.setContentText("Appointment overlaps with another");
+            alert.showAndWait();
+            return;
+        }
 
             //business hours check(convert to eastern time)
-//        ZonedDateTime openEST = ZonedDateTime.of(date, LocalTime.of(8, 00), ZoneId.of("America/New_York"));
-//        ZonedDateTime closedEST = ZonedDateTime.of(date, LocalTime.of(22, 00), ZoneId.of("America/New_York"));
-//        ZonedDateTime localOpen = openEST.withZoneSameInstant(ZoneId.of(TimeZone.getDefault().getID()));
-//        ZonedDateTime localClosed = closedEST.withZoneSameInstant(ZoneId.of(TimeZone.getDefault().getID()));
-//        LocalTime open = localOpen.toLocalTime();
-//        LocalTime closed = localClosed.toLocalTime();
-//
-//        if (AppointmentsDOA.checkBuinessHours(localOpen, localClosed, open, closed)) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Time Error");
-//            alert.setContentText("Choose a time when oour business is open");
-//            alert.showAndWait();
-//            return;
+            ZonedDateTime openEST = ZonedDateTime.of(date, LocalTime.of(8, 00), ZoneId.of("America/New_York"));
+            ZonedDateTime closedEST = ZonedDateTime.of(date, LocalTime.of(22, 00), ZoneId.of("America/New_York"));
+            ZonedDateTime localOpen = openEST.withZoneSameInstant(ZoneId.of(TimeZone.getDefault().getID()));
+            ZonedDateTime localClosed = closedEST.withZoneSameInstant(ZoneId.of(TimeZone.getDefault().getID()));
+            LocalTime open = localOpen.toLocalTime();
+            LocalTime closed = localClosed.toLocalTime();
 
-            /**
-             * Adds the new appointment information into the database
-             */
-            AppointmentsDOA.addAppointment(title, description, location, type, Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime), customers.getCustomerID(), contacts.getContactID(), users.getUserID());
-
-            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/View/AppointmentScreen.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();
+        if (!startTime.isBefore(endTime)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Time Error");
+            alert.setContentText("Start must be before end");
+            alert.showAndWait();
+            return;
         }
+
+            if (!AppointmentsDOA.checkBusinessHours(open, closed, startTime, endTime)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Time Error");
+                alert.setContentText("Choose a time when our business is open");
+                alert.showAndWait();
+                return;
+            }
+
+                /**
+                 * Adds the new appointment information into the database
+                 */
+                AppointmentsDOA.addAppointment(title, description, location, type, Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime), customers.getCustomerID(), contacts.getContactID(), users.getUserID());
+
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/View/AppointmentScreen.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+
 
 
     /**
@@ -237,6 +251,7 @@ public class AddAppointment implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
 
     /**
      * Initializes the controller class

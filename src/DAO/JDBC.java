@@ -16,6 +16,10 @@ public class JDBC {
     private static final String password = "Passw0rd!";
     public static Connection connection =null;
 
+    /**
+     * Starts the database connection
+     * @return
+     */
     public static Connection openConnection(){
         try{
             Class.forName(driver);
@@ -31,7 +35,9 @@ public class JDBC {
     }
 
 
-    
+    /**
+     * Closes the database connection
+     */
         public static void closeConnection(){
             try{
                 connection.close();

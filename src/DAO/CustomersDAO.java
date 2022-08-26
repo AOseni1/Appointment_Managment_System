@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This creates an observable list for all customers in the database.
+ */
 public class CustomersDAO {
     public static ObservableList<Customers> getAllCustomers() {
         ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
@@ -37,6 +40,14 @@ public class CustomersDAO {
         return allCustomers;
     }
 
+    /**
+     * This is the method that allows for customer addition
+     * @param name
+     * @param address
+     * @param phoneNumber
+     * @param postalCode
+     * @param divisionID
+     */
     public static void addCustomer(String name, String address, String phoneNumber, String postalCode, int divisionID) {
         String sql = "INSERT into Customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) values(NULL, ?, ?, ?, ?, ?)";
         try {
@@ -53,6 +64,15 @@ public class CustomersDAO {
         }
     }
 
+    /**
+     * This is the method that allows customer information to be edited/modified
+     * @param name
+     * @param address
+     * @param phoneNumber
+     * @param postalCode
+     * @param divisionID
+     * @param customer_ID
+     */
     public static void editCustomer(String name, String address, String phoneNumber, String postalCode, int divisionID, int customer_ID) {
         String sql = "UPDATE Customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?;";
         try {
@@ -70,6 +90,10 @@ public class CustomersDAO {
         }
     }
 
+    /**
+     * This is the method that allows for customer deletion
+     * @param customer_ID
+     */
     public static void deleteCustomer(int customer_ID) {
         String sql1 = "DELETE FROM appointments WHERE Customer_ID = ?;";
         try {
