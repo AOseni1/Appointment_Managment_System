@@ -68,7 +68,7 @@ public class Login implements Initializable {
                 PrintWriter pw = new PrintWriter(new FileOutputStream(
                         new File("login_activity.txt"),
                         true /* append = true */));
-                pw.append("\t This is an successful login by " + username + " at " + Timestamp.valueOf(LocalDateTime.now()) +" \n");
+                pw.append("\t This is a successful login by " + username + " at " + Timestamp.valueOf(LocalDateTime.now()) +" \n");
                 pw.close();
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
