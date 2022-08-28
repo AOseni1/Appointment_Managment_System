@@ -230,7 +230,7 @@ public class AddAppointment implements Initializable {
                 /**
                  * Adds the new appointment information into the database
                  */
-                AppointmentsDOA.addAppointment(title, description, location, type, Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime), customers.getCustomerID(), contacts.getContactID(), users.getUserID());
+                AppointmentsDOA.addAppointment(title, description, location, type, Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime), customers.getCustomerID(), users.getUserID(), contacts.getContactID());
 
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/View/AppointmentScreen.fxml"));
