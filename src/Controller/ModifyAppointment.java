@@ -194,7 +194,7 @@ public class ModifyAppointment implements Initializable {
             return;
         }
 
-        AppointmentsDOA.editAppointment(title, description, location, type, Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime), customers.getCustomerID(), contacts.getContactID(), users.getUserID(), appointment_ID);
+        AppointmentsDOA.editAppointment(title, description, location, type, Timestamp.valueOf(startDateTime), Timestamp.valueOf(endDateTime), customers.getCustomerID(), users.getUserID(), contacts.getContactID(),  appointment_ID);
 
 
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
