@@ -1,4 +1,4 @@
-WGU C195" Software II - Advanced Java Appointment Scheduler Application
+WGU C195 Software II - Advanced Java Appointment Scheduler Application
 
 The purpose of this application is to have a tool for managing appointments. This application allows users to create, update and delete customer and appointment information as well as make sure appointments are not created outside of business hours or that customer appointments do not overlap, among many other functions.
 
